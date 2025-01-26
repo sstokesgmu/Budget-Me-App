@@ -1,20 +1,16 @@
 import { Canvas } from "@react-three/fiber";
-import Chart from "./components/Chart.jsx";
+import Chart from "./components/Chart/Chart.jsx";
+import Scene from "./components/ThreeJs/Scene.jsx"
+import Profile from "./components/Common/User.jsx"
 
 export default function App() {
 return (
     <>
-      <Canvas>
-        <mesh>
-          <boxGeometry args={[2, 2, 2]} />
-          <meshPhongMaterial />
-        </mesh>
-        <ambientLight intensity={0.1} />
-        <directionalLight position={[0, 0, 5]} color="red" />
+      <Profile />
+      {/* <Canvas>
+        <Scene />
       </Canvas>
-
-      <Chart />
-
+      <Chart /> */}
     </>
-);
+  );
 }
