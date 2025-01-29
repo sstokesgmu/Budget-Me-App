@@ -1,5 +1,9 @@
 import react from 'react'
 
+export default function Profile(){
+ 
+    return <Icon person={{name:"Akuma"}} size="S"/>
+}
 /**
  * @param {person}  
  * @returns 
@@ -17,7 +21,3 @@ function Icon({person, size}) {
     );
 }
 
-export default function Profile(){
- 
-    return <Icon person={{name:"Akuma"}} size="S"/>
-}
