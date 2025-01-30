@@ -57,10 +57,10 @@ export default function UserPage() {
       
       let interval = setInterval(() => {
         setCount(x => {
-          let newCount= x - 100;
+          let newCount= x - 10;
           return newCount <= 500 ? 500: newCount;
         })
-      }, 1000);
+      }, 80);
 
       return () => clearInterval(interval);
     },[count])
@@ -72,14 +72,13 @@ export default function UserPage() {
     const loaded = () => {
       return (
         <>
+          <NavBar/>
           <pre>{JSON.stringify(profileData,null,2)}</pre>
           {/*Card container*/}
           <section style={{display:"flex",gap:"10px", flexflow:"row no-wrap"}}>
               <Card renderStyle={"card-horiz-01"} data={{name:profileData.userData.name, total:count}}/>
               <Card renderStyle={"card-profile"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
           </section>
-          <h2> Number of Active Accounts: {profileData.userData.accounts.length}</h2>
-          <h2>Estimated Balance: </h2>
         </>
       );
     };
