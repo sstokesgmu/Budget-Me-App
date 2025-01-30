@@ -32,9 +32,9 @@ function selectCardStyle(style,data){
             );
         case "card-profile": 
             return (
-                <div className="contents">
-                    <img src={data.src} alt={data.alt}/>
-                </div>
+                <div>
+                     <img src={data.src} alt={data.alt}/>
+                </div>  
             );
         default:
             return null

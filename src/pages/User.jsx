@@ -34,9 +34,8 @@ export default function UserPage() {
       return (
         <>
           <pre>{JSON.stringify(profileData,null,2)}</pre>
-          <h1>{profileData.userData.name}</h1>
           {/*Card container*/}
-          <section style={{display:"flex",gap:"30px"}}>
+          <section style={{display:"flex",gap:"10px", flexflow:"row no-wrap"}}>
               <Card renderStyle={"card-horiz-01"} data={{name:profileData.userData.name, total:1000}}/>
               <Card renderStyle={"card-profile"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
           </section>
@@ -51,9 +50,6 @@ export default function UserPage() {
       return <h1>Loading...</h1>;
     };
   
-
-  return profileData ? loaded() : loading();
-
-    
+  return profileData ? loaded() : loading();  
 }
 
