@@ -25,8 +25,8 @@ function selectCardStyle(style,data){
                 <div className="contents">
                     <h1 className="card-title">{data.name}</h1>
                     <div className="card-body">
+                        <h1>{data.total}</h1>
                         <h2>Total Balance</h2>
-                        <h3>{data.total}</h3>
                     </div>
                 </div>
             );
