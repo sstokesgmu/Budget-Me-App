@@ -14,3 +14,4 @@ export function Cumulative(){
     a.forEach(number => value += number);
     return value; 
 } 
+

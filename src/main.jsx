@@ -5,6 +5,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Dashboard from './pages/Dashboard.jsx'
 import User from './pages/User.jsx'
 import Budget from './pages/Budget.jsx'
+import Test from './pages/Test.jsx'
 
 //https://reactrouter.com/6.28.2/routers/create-browser-router
 const router = createBrowserRouter([
@@ -22,6 +23,12 @@ const router = createBrowserRouter([
     path:'/budget',
     element:<Budget/>,
     errorElement:<div>404 not found</div>
+  },
+  {
+    path:'/test',
+    element:<Test/>,
+    errorElement:<h1>404 not found</h1>
+
   }
 ])
 
