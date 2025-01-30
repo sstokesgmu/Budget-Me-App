@@ -9,7 +9,7 @@ import './card.scss'
 
 */
 
-export default function Card({renderStyle, data, }) {
+export default function Card({renderStyle, data,}) {
     return (
         <section className={renderStyle}>
            {selectCardStyle(renderStyle,data)}
@@ -24,10 +24,16 @@ function selectCardStyle(style,data){
             return(
                 <div className="contents">
                     <h1 className="card-title">{data.name}</h1>
-                    <div>
+                    <div className="card-body">
                         <h2>Total Balance</h2>
                         <h3>{data.total}</h3>
                     </div>
+                </div>
+            );
+        case "card-profile": 
+            return (
+                <div className="contents">
+                    <img src={data.src} alt={data.alt}/>
                 </div>
             );
         default:

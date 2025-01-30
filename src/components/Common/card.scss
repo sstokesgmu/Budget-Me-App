@@ -1,10 +1,51 @@
 .card-horiz-01{
      display:flex; 
      height: 50vh;
+     flex-flow:column wrap;
+     justify-content:space-between;
+     align-items: center;
+     position: relative; 
+     width:80%;
+     height: 75vh;
+     margin:50px;
     .contents{
+       background-color: blue;
+       display:flex;
+       flex-direction: column;
+       justify-content: space-evenly;
+       align-items: center;
+       flex:1;
+       padding:10px;
 
-        background-color: blue;
-        flex:1;
+       width:100%;
     }
-     
+    .card-title{
+        background-color: red;
+        margin-bottom:20px;
+        padding:10px;
+        width:80%;
+        text-align:center;
+        font-size: xx-large
+    }
+    .card-body{
+        background-color: green;  
+        padding: 10px;
+        width:100%;
+        text-align:center;    
+        font-size:xx-large
+    }
+}
+
+
+.card-profile {
+    background-color: red;
+    margin:50px;
+    display:flex;
+     img{
+        position:relative;
+        padding:10px;
+        width:70vh;
+        height:auto;
+        
+    }
 }

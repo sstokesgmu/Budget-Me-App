@@ -36,7 +36,10 @@ export default function UserPage() {
           <pre>{JSON.stringify(profileData,null,2)}</pre>
           <h1>{profileData.userData.name}</h1>
           {/*Card container*/}
-          <Card renderStyle={"card-horiz-01"} data={{name:profileData.userData.name, total:1000}}/>
+          <section style={{display:"flex",gap:"30px"}}>
+              <Card renderStyle={"card-horiz-01"} data={{name:profileData.userData.name, total:1000}}/>
+              <Card renderStyle={"card-profile"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
+          </section>
           <h2> Number of Active Accounts: {profileData.userData.accounts.length}</h2>
           <h2>Estimated Balance: </h2>
         </>
