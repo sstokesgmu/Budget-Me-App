@@ -8,7 +8,7 @@ export default function Test(){
     return (
         <>
             <NavBar/>
-            <Form type={'create-account'} title={'Create An Account'}/>
+            <Form type={'create-transaction'} title={'Create Transaction'}/>
         </>
     );
 }
