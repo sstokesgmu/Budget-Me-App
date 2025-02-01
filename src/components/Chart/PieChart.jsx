@@ -33,10 +33,12 @@ import react from 'react';
 export default function MyPieChart({datas}){
 
     return  (
-        <ResponsiveContainer width="100%" height={300}>                          
-            <PieChart width={730} height={250}>
-                <Pie data={data} dataKey="value" cx="50%" cy="50%" innerRadius={50} outerRadius={80} fill="#82ca9d"/>
+        <ResponsiveContainer width="50%" height="100%" style={{flex:'1'}}>                          
+            <PieChart>
+                <Pie data={data} dataKey="value" cx="50%" cy="50%" innerRadius={200} outerRadius={250} fill="#82ca9d"/>
             </PieChart>
-      </ResponsiveContainer>
+        </ResponsiveContainer>
+        
+        
     );
 };

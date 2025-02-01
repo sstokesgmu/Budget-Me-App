@@ -30,13 +30,21 @@ function selectCardStyle(style,data){
                     </div>
                 </div>
             );
-        case "card-profile": 
+        case "card-profile-big": 
             return (
                 <div>
                      <img src={data.src} alt={data.alt}/>
                 </div>  
             );
-        case 'card-overview':
+        case "card-profile-small": 
+            return (
+                <div>
+                     <img src={data.src} alt={data.alt}/>
+                </div>  
+            );
+        
+        
+        case 'card-horiz-slim-01':
             return (
                 <div>
                     <div>

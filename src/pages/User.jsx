@@ -78,9 +78,16 @@ export default function UserPage() {
           {/*Card container*/}
           <section style={{display:"flex",gap:"10px", flexflow:"row no-wrap"}}>
               <Card renderStyle={"card-horiz-01"} data={{name:profileData.userData.name, total:count}}/>
-              <Card renderStyle={"card-profile"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
+              <Card renderStyle={"card-profile-big"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
           </section>
-          <section>
+          <section style={{width:'100%', height:'35rem', display:'flex'}}>
+            <div style={{width:'40%', display:'flex', flexDirection:'column', alignItems:'center'}}>
+              <h2 style={{}}>Total Available Balance</h2>
+              <Card renderStyle={"card-horiz-slim-01"}/>
+              <Card renderStyle={"card-horiz-slim-01"}/>
+              <Card renderStyle={"card-horiz-slim-01"}/>
+              <Card renderStyle={"card-horiz-slim-01"}/>
+            </div>
             <PieChart/>
           </section>
         </>
