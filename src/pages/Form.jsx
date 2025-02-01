@@ -1,5 +1,6 @@
 import react, {useState, useEffect} from 'react';
-import { calcVolumePoint } from 'three/examples/jsm/curves/NURBSUtils.js';
+import NavBar from '../components/Common/NavBar'
+
 
 export default function Form ({type, title}){
 
@@ -8,7 +9,7 @@ export default function Form ({type, title}){
         "create-account": {accountType: '', accountNum: '', balance: ''},
         "update-account": {accountType: '', balance: ''},
         "create-transaction": {company:'', transType:'', amount:''},
-        "update-transaction": {},
+        "update-transaction":  {company:'', transType:'', amount:''},
     };
     
     
@@ -55,12 +56,15 @@ export default function Form ({type, title}){
     }
     const ComponentToRender = ValidateAndReturn(type, RenderFunctions);
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>{title}</h1>
-            {ComponentToRender(formValue, handleChange)}
-            <button type="submit">Submit</button>
-            <button type="submit" onClick={redirect}>Cancel</button> {/*Redirect to the previous page*/}
-        </form>
+        <>
+            <NavBar/>
+            <form onSubmit={handleSubmit}>
+                <h1>{title}</h1>
+                {ComponentToRender(formValue, handleChange)}
+                <button type="submit">Submit</button>
+                <button type="submit" onClick={redirect}>Cancel</button> {/*Redirect to the previous page*/}
+            </form>
+        </>
     );
 }
 

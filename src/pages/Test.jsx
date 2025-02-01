@@ -1,6 +1,5 @@
-import react from 'react';
-import NavBar from '../components/Common/NavBar'
-import Form from '../components/Common/Form';
+
+import Form from './Form';
 import {} from '../test'
 
 export default function Test(){

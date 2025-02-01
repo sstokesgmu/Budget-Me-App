@@ -5,7 +5,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Dashboard from './pages/Dashboard.jsx'
 import User from './pages/User.jsx'
 import Budget from './pages/Budget.jsx'
-import Test from './pages/Test.jsx'
+import Form from './pages/Form.jsx'
 
 //https://reactrouter.com/6.28.2/routers/create-browser-router
 const router = createBrowserRouter([
@@ -25,8 +25,8 @@ const router = createBrowserRouter([
     errorElement:<div>404 not found</div>
   },
   {
-    path:'/test',
-    element:<Test/>,
+    path:'/form',
+    element:<Form type={'create-transaction'} title={'Create Transaction'}/>,
     errorElement:<h1>404 not found</h1>
 
   }
