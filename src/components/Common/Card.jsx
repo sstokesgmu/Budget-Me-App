@@ -26,7 +26,7 @@ function selectCardStyle(style,data){
                     <h1 className="card-title">{data.name}</h1>
                     <div className="card-body">
                         <h1>{data.total}</h1>
-                        <h2>Total Balance</h2>
+                        <h2>Total Number of Accounts Tracked: 1</h2>
                     </div>
                 </div>
             );
@@ -35,6 +35,14 @@ function selectCardStyle(style,data){
                 <div>
                      <img src={data.src} alt={data.alt}/>
                 </div>  
+            );
+        case 'card-overview':
+            return (
+                <div>
+                    <div>
+                        
+                    </div>
+                </div>
             );
         default:
             return null

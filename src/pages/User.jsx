@@ -3,6 +3,7 @@ import Profile from '../components/Common/Profile'
 import NavBar from '../components/Common/NavBar';
 import Table from '../components/Common/Table';
 import Card from '../components/Common/Card';
+import PieChart from '../components/Chart/PieChart.jsx';
 
 
 
@@ -78,6 +79,9 @@ export default function UserPage() {
           <section style={{display:"flex",gap:"10px", flexflow:"row no-wrap"}}>
               <Card renderStyle={"card-horiz-01"} data={{name:profileData.userData.name, total:count}}/>
               <Card renderStyle={"card-profile"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
+          </section>
+          <section>
+            <PieChart/>
           </section>
         </>
       );
