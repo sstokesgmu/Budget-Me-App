@@ -1,9 +1,9 @@
 import react from 'react'; 
-import Profile from '../components/Common/Profile'
 import NavBar from '../components/Common/NavBar';
 import Table from '../components/Common/Table';
-import Card from '../components/Common/Card';
 import PieChart from '../components/Chart/PieChart.jsx';
+import TextCard from '../components/Common/Card/TextCard.jsx';
+import Profile from '../components/Common/Profile';
 
 
 
@@ -22,8 +22,8 @@ export default function UserPage() {
     const getData = async () => {
         try {
             const [userUnformatted, accountData] = await Promise.all([
-                fetch('http://192.168.1.162:8080/api/users').then(data => data.json()),
-                fetch(`http://192.168.1.162:8080/api/accounts`).then(data => data.json()),
+                fetch('https://budgetapp-vdsp.onrender.com/api/users').then(data => data.json()),
+                fetch(`https://budgetapp-vdsp.onrender.com/api/accounts`).then(data => data.json()),
             ])
             const userData = userUnformatted[0];
             setCount(accountData[0].current_amount);
@@ -77,16 +77,13 @@ export default function UserPage() {
           <pre>{JSON.stringify(profileData,null,2)}</pre>
           {/*Card container*/}
           <section style={{display:"flex",gap:"10px", flexflow:"row no-wrap"}}>
-              <Card renderStyle={"card-horiz-01"} data={{name:profileData.userData.name, total:count}}/>
-              <Card renderStyle={"card-profile-big"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
+              <TextCard renderStyle={'card_basic'} data={{name:profileData.userData.name,total:count}}/>
+              <Profile renderStyle={"profile_big"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
           </section>
           <section style={{width:'100%', height:'35rem', display:'flex'}}>
             <div style={{width:'40%', display:'flex', flexDirection:'column', alignItems:'center'}}>
               <h2 style={{}}>Total Available Balance</h2>
-              <Card renderStyle={"card-horiz-slim-01"}/>
-              <Card renderStyle={"card-horiz-slim-01"}/>
-              <Card renderStyle={"card-horiz-slim-01"}/>
-              <Card renderStyle={"card-horiz-slim-01"}/>
+              <TextCard renderStyle={'card_basic_slim'}/>
             </div>
             <PieChart/>
           </section>

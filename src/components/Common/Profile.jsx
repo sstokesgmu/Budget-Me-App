@@ -1,23 +1,43 @@
 import react from 'react'
+import './profile.scss'
 
-export default function Profile(){
- 
-    return <Icon person={{name:"Akuma"}} size="S"/>
+// /**
+//  * @param {person}  
+//  * @returns 
+//  * source:https://www.webfx.com/blog/web-design/circular-images-css/
+//  */
+// function Icon({person, size}) {
+//     return (
+//         <img
+//             className = "avatar" 
+//             src = "src/assets/sfa3-akuma2.jpg"
+//             alt= {person.name}  
+//             width="500"
+//             height="500"
+//         />
+//     );
+// }
+const Types = {
+    BIG: "profile_big",
+    SMALL: "profile_small"
 }
-/**
- * @param {person}  
- * @returns 
- * source:https://www.webfx.com/blog/web-design/circular-images-css/
- */
-function Icon({person, size}) {
+
+export default function Profile({renderStyle, data}){
     return (
-        <img
-            className = "avatar" 
-            src = "src/assets/sfa3-akuma2.jpg"
-            alt= {person.name}  
-            width="500"
-            height="500"
-        />
+        <section className={renderStyle}>
+            {selectCard(renderStyle,data)}
+        </section>
     );
 }
+
+function selectCard(style,data){
+    switch (style){
+        case Types.BIG:
+        case Types.SMALL:
+            return (<div>
+                        <img src={data.src} alt={data.alt}/>
+                    </div>);
+    }
+}
+
 

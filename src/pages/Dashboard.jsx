@@ -1,7 +1,6 @@
 import react from 'react'
 import NavBar from '../components/Common/NavBar'
 import TransactionChart from '../components/Chart/TransChart';
-import Card from '../components/Common/Card';
 
 export default function Dashboard(){
 
@@ -13,7 +12,7 @@ export default function Dashboard(){
         <NavBar/>
         <div style={{display:'flex'}}>
             <section style={{width:'20%',border:"solid"}}>
-                <Card renderStyle={"card-profile-small"} data={{src:"src/assets/sfa3-ken2.jpg", alt:"Ken Picture"}}/>
+                {/* <Card renderStyle={"card-profile-small"} data={{src:"src/assets/sfa3-ken2.jpg", alt:"Ken Picture"}}/> */}
                 <section style={{backgroundColor:'red', height:'30%', position:'relative', top:'6rem'}}>
                     hello
                 </section>
