@@ -12,10 +12,10 @@ export default function UserPage() {
     
     const [profileData, setData] = useState(null);
     const [isMounted, setMounted] = useState(false);
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState({startingSum: 0, currentSum:0});
 
-    const [startVal, setStartVal ]= useState(0);
-     const currentAmount = useRef(500);
+    // const [startVal, setStartVal ]= useState(0);
+    //  const currentAmount = useRef(500);
 
     const getData = async () => {
         try {
@@ -24,10 +24,12 @@ export default function UserPage() {
                 fetch(`https://budgetapp-vdsp.onrender.com/api/accounts`).then(data => data.json()),
             ])
             const userData = userUnformatted[0];
-            setCount(accountData[0].current_amount);
-            setStartVal(accountData[0].current_amount);
+           let cumulative = Cumulative(accountData);
+   
+            //Create the data here
             setData({userData, accountData});
             setMounted(true);
+            setCount(cumulative);
         } catch (e) {
             console.error(e);
         }
@@ -38,32 +40,42 @@ export default function UserPage() {
         console.log('The page is mounted');
     },[]); //!Rerun 
 
-    //useTotalBalance
-    // const handleChange = () => {
-    //   if(!isMounted)
-    //      return count;
-    //   else {
-    //     setCount(Coroutine(count,currentAmount,400));
-    //     return count;
-    //   }
-        
-    // }
-
-    useEffect(()=>{
-      if(count <= 500) return;
-      
-      let interval = setInterval(() => {
-        setCount(x => {
-          let newCount= x - 10;
-          return newCount <= 500 ? 500: newCount;
-        })
+    useEffect(() => {
+      console.log(count.startingSum);
+      if(count.startingSum <= count.currentSum) return;
+      let interval = setInterval(()=>{
+        setCount(previous=> {
+          let newCount = previous.startingSum - 10;
+          return newCount <= previous.currentSum ? {startingSum:previous.currentSum, currentSum:previous.currentSum}:
+                  {startingSum:newCount, currentSum:previous.currentSum};
+        });
       }, 80);
-
       return () => clearInterval(interval);
-    },[count])
-    function Coroutine(initialVal,targetVal, rate) {
-      return initialVal != targetVal ? initialVal -= rate : targetVal;
+    }, [count]);
+
+    
+
+    function Cumulative(data)
+    {
+      //deconstuct the array for only starting and curret values
+      const startingBalances = data.map(element => element.starting_amount);
+      const currentBalances = data.map(element=> element.current_amount);
+      // console.log(startingBalances);
+      // console.log(currentBalances);
+     let startingSum = startingBalances.reduce((partialSum, a) => partialSum + a, 0);
+      console.log("The starting is: " + startingSum);
+    let currentSum = currentBalances.reduce((partialSum, a) => {
+      if (a == null) {
+        a = 0;
+      }     
+      return (partialSum + a)});
+      console.log("The current is: " + currentSum);
+      return {startingSum, currentSum};
     }
+
+    // function Coroutine(initialVal,targetVal, rate) {
+    //   return initialVal != targetVal ? initialVal -= rate : targetVal;
+    // }
     
     // loaded function for when data is fetched.
     const loaded = () => {
@@ -74,7 +86,7 @@ export default function UserPage() {
           {/*Card container*/}
           <section style={{display:"flex", marginBottom: "10rem",flexflow:"row no-wrap"}}>
               <Profile renderStyle={"profile_big"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
-              <TextCard renderStyle={'card_basic'} data={{name:profileData.userData.name,total:count}}/>
+             <TextCard renderStyle={'card_basic'} data={{name:profileData.userData.name,total:count.startingSum}}/> 
              
           </section>
           <section style={{width:'100%', height:'35rem', display:'flex'}}>
@@ -100,7 +112,6 @@ function BuildComponent(data, component_template, class_obj,){
 
 }
 function BuildComponents(dataArray,component_template, obj, limit){
-  // Take the first 5 accounts
   let newArray = [];
   let i = 0;
   limit  = limit > dataArray.length ? limit = dataArray.length: limit;
@@ -112,10 +123,3 @@ function BuildComponents(dataArray,component_template, obj, limit){
   }
   return newArray;
 }
-  // while( i < limit) {
-  //   let instance = new obj(dataArray[i]);
-  //   newArray.push(component_template);
-  //   i +=1;
-  // }
-//   return newArray;
-// }

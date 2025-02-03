@@ -53,11 +53,8 @@ function selectCard(style,data){
         case Types.BASIC_SLIM:
             classElements = dictionary.get(Types.BASIC_SLIM);
             for(let i = 0; i < classElements.length; i++){
-                if(data instanceof Account) {
-                    console.log("heloo");
-                    return TextCardLookup.basicSlimAccount(data);
-                }
-                    
+                if(data instanceof Account) 
+                    return TextCardLookup.basicSlimAccount(data);                   
                 else 
                     return TextCardLookup.basicSlim(data);
             } 
@@ -65,8 +62,6 @@ function selectCard(style,data){
             return null;
     }
 }
-
-
 class TextCardLookup {
     static basic(data){
         return(<div className="contents">
@@ -97,8 +92,8 @@ class TextCardLookup {
        return( <>
             <h2>{data.account_num}</h2>
             <div className="box">
-                <div>{data.type??"undefined"}</div>
-                <div>{data.current??0}</div>
+                <div className="type">{data.type??"undefined"}</div>
+                <div className="number">${data.current??0}</div>
                 <div>Icon</div>
             </div>
         </>);
