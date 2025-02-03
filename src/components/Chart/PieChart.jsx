@@ -20,16 +20,20 @@ const renderActiveShape = (props) => {
   } = props;
 
   //props controls the Position/Geometry, Apperance and data, Midpoint
-
   const sin = Math.sin(-RADIAN * midAngle);
   const cos = Math.cos(-RADIAN * midAngle);
   
    const scaledOuterRadius = outerRadius * 1.1; // 10% larger for the hovered segment
-
   return (
     <g>
-      <text x={cx} y={cy} dy={8}  textAnchor="middle" fill={fill}>
-        {payload.name}
+      <text x={cx} y={cy - 30} textAnchor="middle" fill={fill} fontSize="40">
+        {payload.name} {/* Show account name */}
+      </text>
+      <text x={cx} y={cy + 10} textAnchor="middle" fill={fill} fontSize="35">
+        {`$${value}`} {/* Show the value of the segment */}
+      </text>
+      <text x={cx} y={cy + 50} textAnchor="middle" fill={fill} fontSize="30">
+        {`(${(percent * 100).toFixed(2)}%)`} {/* Show the percentage */}
       </text>
       <Sector
         cx={cx} cy={cy} 
@@ -60,7 +64,7 @@ export default function MyPieChart({data}){
     const objs = data.map(account => {
       return {
         name: "Account " + account.account_num,
-        value: account.current??100,
+        value: account.current??0,
       }
     })  
     return  (

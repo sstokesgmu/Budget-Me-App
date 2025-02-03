@@ -68,7 +68,7 @@ class TextCardLookup {
             <h1 className="card-title">{data.name}</h1>
             <div className="card-body">
                 <h1>${data.total}.00</h1>
-                <h2>Total Number of Accounts Tracked: 1</h2>
+                <h2>Total Number of Accounts Tracked: {data.numberofAccounts}</h2>
             </div>
         </div>);
     }

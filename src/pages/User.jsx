@@ -80,7 +80,7 @@ export default function UserPage() {
           {/*Card container*/}
           <section style={{display:"flex", marginBottom: "10rem",flexflow:"row no-wrap"}}>
               <Profile renderStyle={"profile_big"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
-             <TextCard renderStyle={'card_basic'} data={{name:profileData.userData.name,total:count.startingSum}}/> 
+             <TextCard renderStyle={'card_basic'} data={{name:profileData.userData.name,numberofAccounts:profileData.accountData.length,total:count.startingSum}}/> 
              
           </section>
           <section style={{width:'100%', height:'35rem', display:'flex'}}>
