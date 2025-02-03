@@ -97,8 +97,8 @@ class TextCardLookup {
        return( <>
             <h2>{data.account_num}</h2>
             <div className="box">
-                <div>{data.type}</div>
-                <div>{data.current}</div>
+                <div>{data.type??"undefined"}</div>
+                <div>{data.current??0}</div>
                 <div>Icon</div>
             </div>
         </>);
