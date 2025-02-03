@@ -28,12 +28,12 @@ const renderActiveShape = (props) => {
 
   return (
     <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
+      <text x={cx} y={cy} dy={8}  textAnchor="middle" fill={fill}>
         {payload.name}
       </text>
       <Sector
         cx={cx} cy={cy} 
-        innerRadius={innerRadius} outerRadius={outerRadius}
+        innerRadius={innerRadius} outerRadius={scaledOuterRadius}
         startAngle={startAngle} endAngle={endAngle}
         fill={fill}
       />
@@ -52,7 +52,11 @@ const renderActiveShape = (props) => {
 
 export default function MyPieChart({data}){
   const [activeIndex, setActiveIndex] = useState(0);
+    
     const onPieEnter = useCallback((_,index)=>{setActiveIndex(index)},[setActiveIndex]);
+
+    const onPieLeave = useCallback((_,index)=>{setActiveIndex(null);},[setActiveIndex]);
+
     const objs = data.map(account => {
       return {
         name: "Account " + account.account_num,
@@ -62,7 +66,7 @@ export default function MyPieChart({data}){
     return  (
       <ResponsiveContainer width="50%" height="100%" style={{flex:'1'}}>                          
           <PieChart>
-              <Pie  activeIndex={activeIndex} activeShape={renderActiveShape} data={objs} nameKey="name" dataKey="value" cx="50%" cy="50%" innerRadius={200} outerRadius={250} fill="#82ca9d" onMouseEnter={onPieEnter}/>
+              <Pie  activeIndex={activeIndex} activeShape={renderActiveShape} data={objs} nameKey="name" dataKey="value" cx="50%" cy="50%" innerRadius={200} outerRadius={250} fill="#82ca9d" onMouseEnter={onPieEnter} onMouseLeave={onPieLeave}/>
           </PieChart>
       </ResponsiveContainer>
     );
