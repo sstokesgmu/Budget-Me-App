@@ -2,8 +2,9 @@ import react, { cloneElement } from 'react';
 import NavBar from '../components/Common/NavBar';
 import Table from '../components/Common/Table';
 import PieChart from '../components/Chart/PieChart.jsx';
-import TextCard from '../components/Common/Card/TextCard.jsx';
+import TextCard,{Account} from '../components/Common/Card/TextCard.jsx';
 import Profile from '../components/Common/Profile';
+
 
 import {useState, useEffect, useRef} from 'react';
 export default function UserPage() {
@@ -48,21 +49,21 @@ export default function UserPage() {
         
     // }
 
-    // useEffect(()=>{
-    //   if(count <= 500) return;
+    useEffect(()=>{
+      if(count <= 500) return;
       
-    //   let interval = setInterval(() => {
-    //     setCount(x => {
-    //       let newCount= x - 10;
-    //       return newCount <= 500 ? 500: newCount;
-    //     })
-    //   }, 80);
+      let interval = setInterval(() => {
+        setCount(x => {
+          let newCount= x - 10;
+          return newCount <= 500 ? 500: newCount;
+        })
+      }, 80);
 
-    //   return () => clearInterval(interval);
-    // },[count])
-    // function Coroutine(initialVal,targetVal, rate) {
-    //   return initialVal != targetVal ? initialVal -= rate : targetVal;
-    // }
+      return () => clearInterval(interval);
+    },[count])
+    function Coroutine(initialVal,targetVal, rate) {
+      return initialVal != targetVal ? initialVal -= rate : targetVal;
+    }
     
     // loaded function for when data is fetched.
     const loaded = () => {
@@ -105,7 +106,6 @@ function BuildComponents(dataArray,component_template, obj, limit){
   limit  = limit > dataArray.length ? limit = dataArray.length: limit;
   while (i < limit) {
     let instance = new obj(dataArray[i]);
-    
     const clone = cloneElement(component_template, {key:i,data:instance})
     newArray.push(clone);
     i +=1;
@@ -119,10 +119,3 @@ function BuildComponents(dataArray,component_template, obj, limit){
   // }
 //   return newArray;
 // }
-
-export class Account {
-  constructor({account_num,type,date_opened,date_closed,starting_amount,current_amount}){
-      this.account_num=account_num, this.type=type,this.dateOpen=date_opened,
-      this.dateClosed=date_closed, this.start=starting_amount, this.current=current_amount
-  }
-}

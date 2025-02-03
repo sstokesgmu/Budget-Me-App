@@ -1,16 +1,27 @@
 import react from 'react';
 import './textCard.scss'
-import { Account } from '../../../pages/User';
 
 const Types = {
     BASIC: "card_basic", 
     BASIC_SLIM: "card_basic_slim",
     BASIC_BUTTON:"card_button",
     BASIC_LINK:"card_link",
-    Basic_SLIM_ACCOUNT:"card_basic_slim_account"
+    BASIC_SLIM_ACCOUNT:"card_basic_slim_account"
+}
+
+export class Account {
+    constructor({account_num,type,date_opened,date_closed,starting_amount,current_amount}){
+        this.account_num=account_num, this.type=type,this.dateOpen=date_opened,
+        this.dateClosed=date_closed, this.start=starting_amount, this.current=current_amount
+    }
 }
 
 
+let dictionary = new Map();
+dictionary.set(Types.BASIC,[]);
+dictionary.get(Types.BASIC).push(Account);
+dictionary.set(Types.BASIC_SLIM,[]);
+dictionary.get(Types.BASIC_SLIM).push(Account);
 
 /**
  * Types:
@@ -28,31 +39,35 @@ export default function TextCard({renderStyle, data,}){
 }
 
 function selectCard(style,data){
-    console.log(data instanceof Account);
+    let classElements;
     switch(style){
         case Types.BASIC:
-            return TextCardLookup.basic(data)
+             classElements = dictionary.get(Types.BASIC);
+            for (let i = 0; i < classElements.length; i++){
+                if(data instanceof Account)
+                    return TextCardLookup.basicAccount(data);
+                //... Add more classes
+                else
+                    return TextCardLookup.basic(data);
+            }
         case Types.BASIC_SLIM:
-            return  TextCardLookup.basicSlim(data)
+            classElements = dictionary.get(Types.BASIC_SLIM);
+            for(let i = 0; i < classElements.length; i++){
+                if(data instanceof Account) {
+                    console.log("heloo");
+                    return TextCardLookup.basicSlimAccount(data);
+                }
+                    
+                else 
+                    return TextCardLookup.basicSlim(data);
+            } 
         default:
             return null;
     }
 }
 
 
-
-
-
-
-
-
-let dictionary = new Map();
-dictionary.set(Types.BASIC, Account)
-console.log(dictionary);
-
-
 class TextCardLookup {
-
     static basic(data){
         return(<div className="contents">
             <h1 className="card-title">{data.name}</h1>
@@ -61,6 +76,9 @@ class TextCardLookup {
                 <h2>Total Number of Accounts Tracked: 1</h2>
             </div>
         </div>);
+    }
+    static basicAccount(data){
+
     }
 
     static basicSlim(data){
@@ -74,5 +92,15 @@ class TextCardLookup {
                 </div>
             </>
         );
+    }
+    static basicSlimAccount(data){
+       return( <>
+            <h2>{data.account_num}</h2>
+            <div className="box">
+                <div>{data.type}</div>
+                <div>{data.current}</div>
+                <div>Icon</div>
+            </div>
+        </>);
     }
 }
