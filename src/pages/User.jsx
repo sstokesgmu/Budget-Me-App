@@ -1,4 +1,4 @@
-import react from 'react'; 
+import react, { cloneElement } from 'react'; 
 import NavBar from '../components/Common/NavBar';
 import Table from '../components/Common/Table';
 import PieChart from '../components/Chart/PieChart.jsx';
@@ -48,18 +48,18 @@ export default function UserPage() {
         
     // }
 
-    useEffect(()=>{
-      if(count <= 500) return;
+    // useEffect(()=>{
+    //   if(count <= 500) return;
       
-      let interval = setInterval(() => {
-        setCount(x => {
-          let newCount= x - 10;
-          return newCount <= 500 ? 500: newCount;
-        })
-      }, 80);
+    //   let interval = setInterval(() => {
+    //     setCount(x => {
+    //       let newCount= x - 10;
+    //       return newCount <= 500 ? 500: newCount;
+    //     })
+    //   }, 80);
 
-      return () => clearInterval(interval);
-    },[count])
+    //   return () => clearInterval(interval);
+    // },[count])
     // function Coroutine(initialVal,targetVal, rate) {
     //   return initialVal != targetVal ? initialVal -= rate : targetVal;
     // }
@@ -83,38 +83,44 @@ export default function UserPage() {
                   profileData.accountData,
                   <TextCard renderStyle={'card_basic_slim'}/>,
                   Account,
-                  2)};
+                  4)}
             </div>
             <PieChart/>
           </section>
         </>
       );
     };
-  
-    // Function for when data doesn't exist.
-    const loading = () => {
-      return <h1>Loading...</h1>;
-    };
-  
-  return profileData ? loaded() : loading();  
+      // Function for when data doesn't exist.
+    const loading = () => { return <h1>Loading...</h1>;};
+    return profileData ? loaded() : loading();  
 }
 
 function BuildComponent(data, component_template, class_obj,){
 
 }
-function BuildComponents(dataArray,component_template, class_obj, limit,){
+function BuildComponents(dataArray,component_template, obj, limit){
   // Take the first 5 accounts
   let newArray = [];
   let i = 0;
-  while( i < limit) {
-    let obj = new class_obj(dataArray[i]);
-    newArray.push(component_template)
+  limit  = limit > dataArray.length ? limit = dataArray.length: limit;
+  while (i < limit) {
+    let instance = new obj(dataArray[i]);
+    
+    const clone = cloneElement(component_template, {key:i,data:instance})
+    newArray.push(clone);
     i +=1;
   }
   return newArray;
 }
+  // while( i < limit) {
+  //   let instance = new obj(dataArray[i]);
+  //   newArray.push(component_template);
+  //   i +=1;
+  // }
+//   return newArray;
+// }
 
-class Account {
+export class Account {
   constructor({account_num,type,date_opened,date_closed,starting_amount,current_amount}){
       this.account_num=account_num, this.type=type,this.dateOpen=date_opened,
       this.dateClosed=date_closed, this.start=starting_amount, this.current=current_amount
