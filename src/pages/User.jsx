@@ -41,7 +41,6 @@ export default function UserPage() {
     },[]); //!Rerun 
 
     useEffect(() => {
-      console.log(count.startingSum);
       if(count.startingSum <= count.currentSum) return;
       let interval = setInterval(()=>{
         setCount(previous=> {
@@ -60,16 +59,11 @@ export default function UserPage() {
       //deconstuct the array for only starting and curret values
       const startingBalances = data.map(element => element.starting_amount);
       const currentBalances = data.map(element=> element.current_amount);
-      // console.log(startingBalances);
-      // console.log(currentBalances);
-     let startingSum = startingBalances.reduce((partialSum, a) => partialSum + a, 0);
-      console.log("The starting is: " + startingSum);
-    let currentSum = currentBalances.reduce((partialSum, a) => {
-      if (a == null) {
-        a = 0;
-      }     
-      return (partialSum + a)});
-      console.log("The current is: " + currentSum);
+      let startingSum = startingBalances.reduce((partialSum, a) => partialSum + a, 0);
+      let currentSum = currentBalances.reduce((partialSum, a) => {
+          if (a == null)  
+            a = 0;     
+          return (partialSum + a)});
       return {startingSum, currentSum};
     }
 
@@ -98,7 +92,7 @@ export default function UserPage() {
                   Account,
                   4)}
             </div>
-            <PieChart/>
+            <PieChart data={FormatData(Account, profileData.accountData,2)}/>
           </section>
         </>
       );
@@ -114,11 +108,23 @@ function BuildComponent(data, component_template, class_obj,){
 function BuildComponents(dataArray,component_template, obj, limit){
   let newArray = [];
   let i = 0;
-  limit  = limit > dataArray.length ? limit = dataArray.length: limit;
+  limit  = limit > dataArray.length || limit < dataArray.length ? limit = dataArray.length: limit;
   while (i < limit) {
     let instance = new obj(dataArray[i]);
     const clone = cloneElement(component_template, {key:i,data:instance})
     newArray.push(clone);
+    i +=1;
+  }
+  return newArray;
+}
+
+function FormatData(class_instance, dataArray, limit){
+  let newArray = [];
+  let i = 0;
+  limit  = limit > dataArray.length || limit < dataArray.length ? limit = dataArray.length: limit;
+  while (i < limit) {
+    let instance = new class_instance(dataArray[i]);
+    newArray.push(instance);
     i +=1;
   }
   return newArray;
