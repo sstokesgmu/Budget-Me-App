@@ -28,17 +28,21 @@ function selectCard(style,data){
             return <div className="contents">
                         <h1 className="card-title">{data.name}</h1>
                         <div className="card-body">
-                            <h1>{data.total}</h1>
+                            <h1>${data.total}.00</h1>
                             <h2>Total Number of Accounts Tracked: 1</h2>
                         </div>
                     </div>
         case Types.BASIC_SLIM:
-            return  <div>
-                        <div>  
+            return  <>
+                        <h2>123</h2>
+                        <div className="box">
+                            <div>Savings</div>
+                            <div>1000000000</div>
+                            <div>Icon</div>
                         </div>
-                    </div>
+                        
+                    </>
         default:
             return null;
     }
 }
-

@@ -1,14 +1,16 @@
+
 .card_basic{
     display:flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    position: relative;
+    position:relative;
+    top: 5rem;
     width: 80%;
-    height: 75vh;
-    margin: 20px;
-    border: 1px solid;
-    border-radius: 15px;
+    height: 300px;
+    margin: 10px;
+    // border: 1px solid;
+    // border-radius: 15px;
     background-color: #fff;
     // .contents{
     //    display:flex;
@@ -21,25 +23,20 @@
     .card-title{
         /*background-color: red;*/
         width:80%;
-        font-size: 5rem;
+        font-size: 4rem;
         margin: 0;
         position: relative;
-        left:200px;
-        top:100px;
+        right:80px;
+        top:10px;
     }
     .card-body{/*background-color: green;*/ width:100%;}
-    .card-body > * {position: relative;left: 65px;}
-    .card-body > h1 {font-size: 7rem;margin: 10px 0;}
-
-    .card-body > h2 {
-        font-size: 2.5rem;  
-        margin-top: 10px;
-    }
+    .card-body > * {position: relative;left:-30px;}
+    .card-body > h1 {font-size: 8rem;margin: 3px;}
+    .card-body > h2 {font-size: 1.5rem;}
 }
 
 .card_basic_slim {
     display:flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     position: relative;
@@ -49,12 +46,16 @@
     border: 1px solid;
     border-radius: 15px;
     background-color: #fff;
-    .contents{
-       display:flex;
-       flex-direction: column;
-       justify-content:space-evenly;
-       align-items: center;
-       flex:1;
-       width:100%;
+    h2 {
+        flex:1;
+        position: relative;
+        left: 40px;
+        font-size:3rem;
+    }
+    .box{
+        display:flex;
+        font-size: 1.2rem;
+        justify-content: space-evenly;
+        width:70%;
     }
 }

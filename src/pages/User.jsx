@@ -5,9 +5,6 @@ import PieChart from '../components/Chart/PieChart.jsx';
 import TextCard from '../components/Common/Card/TextCard.jsx';
 import Profile from '../components/Common/Profile';
 
-
-
-import {Cumulative} from '../test.js'
 import {useState, useEffect, useRef} from 'react';
 export default function UserPage() {
 
@@ -31,10 +28,8 @@ export default function UserPage() {
             setData({userData, accountData});
             setMounted(true);
         } catch (e) {
-  
             console.error(e);
         }
-        
     }
 
     useEffect(() => {
@@ -76,14 +71,19 @@ export default function UserPage() {
           <NavBar/>
           <pre>{JSON.stringify(profileData,null,2)}</pre>
           {/*Card container*/}
-          <section style={{display:"flex",gap:"10px", flexflow:"row no-wrap"}}>
-              <TextCard renderStyle={'card_basic'} data={{name:profileData.userData.name,total:count}}/>
+          <section style={{display:"flex", marginBottom: "10rem",flexflow:"row no-wrap"}}>
               <Profile renderStyle={"profile_big"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
+              <TextCard renderStyle={'card_basic'} data={{name:profileData.userData.name,total:count}}/>
+             
           </section>
           <section style={{width:'100%', height:'35rem', display:'flex'}}>
             <div style={{width:'40%', display:'flex', flexDirection:'column', alignItems:'center'}}>
-              <h2 style={{}}>Total Available Balance</h2>
-              <TextCard renderStyle={'card_basic_slim'}/>
+              <h2 style={{}}>Total Balance of Accounts</h2>
+              {BuildComponents(
+                  profileData.accountData,
+                  <TextCard renderStyle={'card_basic_slim'}/>,
+                  Account,
+                  2)};
             </div>
             <PieChart/>
           </section>
@@ -99,3 +99,24 @@ export default function UserPage() {
   return profileData ? loaded() : loading();  
 }
 
+function BuildComponent(data, component_template, class_obj,){
+
+}
+function BuildComponents(dataArray,component_template, class_obj, limit,){
+  // Take the first 5 accounts
+  let newArray = [];
+  let i = 0;
+  while( i < limit) {
+    let obj = new class_obj(dataArray[i]);
+    newArray.push(component_template)
+    i +=1;
+  }
+  return newArray;
+}
+
+class Account {
+  constructor({account_num,type,date_opened,date_closed,starting_amount,current_amount}){
+      this.account_num=account_num, this.type=type,this.dateOpen=date_opened,
+      this.dateClosed=date_closed, this.start=starting_amount, this.current=current_amount
+  }
+}
