@@ -32,9 +32,9 @@ dictionary.get(Types.BASIC_SLIM).push(Account);
  * @param {*} param0 
  * @returns 
  */
-export default function TextCard({renderStyle, data,}){
-    return (<section className={renderStyle}>
-        {selectCard(renderStyle,data)}
+export default function TextCard({style, data,}){
+    return (<section className={style}>
+        {selectCard(style,data)}
     </section>)
 }
 
