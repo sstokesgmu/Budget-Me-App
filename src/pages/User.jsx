@@ -37,17 +37,17 @@ export default function UserPage() {
         console.log('The page is mounted');
     },[]); //!Rerun 
 
-    useEffect(() => {
-      if(count.startingSum <= count.currentSum) return;
-      let interval = setInterval(()=>{
-        setCount(previous=> {
-          let newCount = previous.startingSum - 10;
-          return newCount <= previous.currentSum ? {startingSum:previous.currentSum, currentSum:previous.currentSum}:
-                  {startingSum:newCount, currentSum:previous.currentSum};
-        });
-      }, 80);
-      return () => clearInterval(interval);
-    }, [count]);
+    // useEffect(() => {
+    //   if(count.startingSum <= count.currentSum) return;
+    //   let interval = setInterval(()=>{
+    //     setCount(previous=> {
+    //       let newCount = previous.startingSum - 10;
+    //       return newCount <= previous.currentSum ? {startingSum:previous.currentSum, currentSum:previous.currentSum}:
+    //               {startingSum:newCount, currentSum:previous.currentSum};
+    //     });
+    //   }, 80);
+    //   return () => clearInterval(interval);
+    // }, [count]);
 
     
 
@@ -83,7 +83,7 @@ export default function UserPage() {
                     TextCard,
                     4, 
                     Account,
-                    'card_button_slim')
+                    'card_basic_slim')
                   }
             </div>
             <PieChart data={profileData.accountData.map(data =>
