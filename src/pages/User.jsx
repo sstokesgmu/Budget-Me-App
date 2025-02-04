@@ -1,6 +1,5 @@
 import react, { cloneElement } from 'react'; 
 import NavBar from '../components/Common/NavBar';
-import Table from '../components/Common/Table';
 import PieChart from '../components/Chart/PieChart.jsx';
 import TextCard from '../components/Common/Card/TextCard.jsx';
 import Profile from '../components/Common/Profile';
@@ -8,7 +7,7 @@ import {Account} from '../utilities/categories.js';
 import {useState, useEffect,} from 'react';
 
 //Utility Functions
-import factory from '../utilities/factory.js';
+import Factory from '../utilities/factory.js';
 
 export default function UserPage() {
     const [profileData, setData] = useState(null);
@@ -74,12 +73,11 @@ export default function UserPage() {
           <section style={{display:"flex", marginBottom: "10rem",flexflow:"row no-wrap"}}>
               <Profile renderStyle={"profile_big"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
              <TextCard style={'card_basic'} data={{name:profileData.userData.name,numberofAccounts:profileData.accountData.length,total:count.startingSum}}/> 
-             
           </section>
           <section style={{width:'100%', height:'35rem', display:'flex'}}>
             <div style={{width:'40%', display:'flex', flexDirection:'column', alignItems:'center'}}>
               <h2 style={{}}>Total Balance of Accounts</h2>
-                  {factory.BuidlComponents(
+                  {Factory.BuidlComponents(
                     profileData.accountData,
                     TextCard,
                     4, 
@@ -88,7 +86,7 @@ export default function UserPage() {
                   }
             </div>
             <PieChart data={profileData.accountData.map(data =>
-              factory.FormatDataToMatchClass(Account,data)
+              Factory.FormatDataToMatchClass(Account,data)
             )}/>        
           </section>
         </>
@@ -98,31 +96,3 @@ export default function UserPage() {
     const loading = () => { return <h1>Loading...</h1>;};
     return profileData ? loaded() : loading();  
 }
-
-// function BuildComponent(data, component_template, class_obj,){
-
-// }
-// function BuildComponents(dataArray,component_template, obj, limit){
-//   let newArray = [];
-//   let i = 0;
-//   limit  = Math.min(dataArray.length, limit);
-//   while (i < limit) {
-//     let instance = new obj(dataArray[i]);
-//     const clone = cloneElement(component_template, {key:i,data:instance})
-//     newArray.push(clone);
-//     i +=1;
-//   }
-//   return newArray;
-// }
-
-// function FormatData(class_instance, dataArray, limit){
-//   limit  = Math.min(dataArray.length,limit);
-//   let newArray = [];
-//   let i = 0;
-//   while (i < limit) {
-//     let instance = new class_instance(dataArray[i]);
-//     newArray.push(instance);
-//     i +=1;
-//   }
-//   return newArray;
-// }

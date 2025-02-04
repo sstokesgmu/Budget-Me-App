@@ -1,8 +1,7 @@
 import './textCard.scss'
-import { CiCirclePlus, CiCircleMinus } from 'react-icons/ci';
+
 import react,{useState} from 'react';
 
-import ModalForm from '../../Modals/ModalForm';
 
 import Library from '../../../utilities/Library';
 import {Account} from '../../../utilities/categories';
@@ -56,21 +55,21 @@ class TextCardLibrary extends Library{
         </>);
     }
 
-    static buttonSlim(data,interactions){
-        const {openModal,closeModal} = interactions;
-        return (
-        <>
-            <h2>{data.account_num}</h2>
-            <div className="box">
-                <div className="type">{data.type??"undefined"}</div>
-                <div className="number">${data.current??0}</div>
-                <div className="iconContainer">
-                    <CiCirclePlus style={{color:'green'}} onClick={openModal}/>
-                    <CiCircleMinus style={{color:'red'}} onClick={closeModal}/>
-                </div>
-            </div>
-        </>)
-    }
+    // static buttonSlim(data,interactions){
+    //     const {openModal,closeModal} = interactions;
+    //     return (
+    //     <>
+    //         <h2>{data.account_num}</h2>
+    //         <div className="box">
+    //             <div className="type">{data.type??"undefined"}</div>
+    //             <div className="number">${data.current??0}</div>
+    //             <div className="iconContainer">
+    //                 <CiCirclePlus style={{color:'green'}} onClick={openModal}/>
+    //                 <CiCircleMinus style={{color:'red'}} onClick={closeModal}/>
+    //             </div>
+    //         </div>
+    //     </>)
+    // }
 }
 
 
@@ -101,12 +100,12 @@ export default function TextCard({style, data,}){
 
 
     return (<section className={style}>
-        {selectCard(style,data, {openModal, closeModal})}
+        {selectCard(style,data)}
         {/* {isModalOpen ? <ModalForm closeModal={closeModal} /> : null} */}
     </section>)
 }
 
-function selectCard(style,data, interactions = undefined){
+function selectCard(style,data){
     let handleReturn;
     switch(style){
         case Types.BASIC:

@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard.jsx'
 import User from './pages/User.jsx'
 import Budget from './pages/Budget.jsx'
 import Form from './pages/Form.jsx'
+import Test from './pages/Test.jsx'
 
 //https://reactrouter.com/6.28.2/routers/create-browser-router
 const router = createBrowserRouter([
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
     element:<Form type={'create-transaction'} title={'Create Transaction'}/>,
     errorElement:<h1>404 not found</h1>
 
+  },
+  {
+    path:'/test',
+    element:<Test/>, 
+    errorElement:<h1>404 not found</h1>
   }
 ])
 
