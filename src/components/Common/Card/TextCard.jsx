@@ -1,12 +1,12 @@
 import react from 'react';
 import './textCard.scss'
+import { CiCirclePlus, CiCircleMinus } from 'react-icons/ci';
 
 const Types = {
     BASIC: "card_basic", 
     BASIC_SLIM: "card_basic_slim",
-    BASIC_BUTTON:"card_button",
-    BASIC_LINK:"card_link",
-    BASIC_SLIM_ACCOUNT:"card_basic_slim_account"
+    BUTTON_SLIM:"card_button_slim",
+    // TEXT_LINK:"card_link",
 }
 
 export class Account {
@@ -22,6 +22,8 @@ dictionary.set(Types.BASIC,[]);
 dictionary.get(Types.BASIC).push(Account);
 dictionary.set(Types.BASIC_SLIM,[]);
 dictionary.get(Types.BASIC_SLIM).push(Account);
+dictionary.set(Types.BUTTON_SLIM, []);
+dictionary.get(Types.BUTTON_SLIM).push(Account);
 
 /**
  * Types:
@@ -57,7 +59,13 @@ function selectCard(style,data){
                     return TextCardLookup.basicSlimAccount(data);                   
                 else 
                     return TextCardLookup.basicSlim(data);
-            } 
+            }
+        case Types.BUTTON_SLIM:
+            classElements = dictionary.get(Types.BUTTON_SLIM)
+            for(let i = 0; i <classElements.length; i++){
+                if(data instanceof Account)
+                    return TextCardLookup.buttonSlim(data)
+            }
         default:
             return null;
     }
@@ -94,8 +102,22 @@ class TextCardLookup {
             <div className="box">
                 <div className="type">{data.type??"undefined"}</div>
                 <div className="number">${data.current??0}</div>
-                <div>Icon</div>
             </div>
         </>);
+    }
+
+    static buttonSlim(data){
+        return (
+        <>
+            <h2>{data.account_num}</h2>
+            <div className="box">
+                <div className="type">{data.type??"undefined"}</div>
+                <div className="number">${data.current??0}</div>
+                <div className="iconContainer">
+                    <CiCirclePlus style={{color:'green'}}/>
+                    <CiCircleMinus style={{color:'red'}}/>
+                </div>
+            </div>
+        </>)
     }
 }

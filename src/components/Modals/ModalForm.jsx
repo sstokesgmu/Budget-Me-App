@@ -39,7 +39,6 @@ export default function ModalForm(){
                         <div>Modal Content</div>
                         <button type="submit">Submit</button>
                     </form>
-                    
                     <button onClick={closeModal}>Close</button>
                 </Modal>
             </div>

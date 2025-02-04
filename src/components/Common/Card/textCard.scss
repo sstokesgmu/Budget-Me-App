@@ -59,3 +59,33 @@
         width:70%;
     }
 }
+
+.card_button_slim {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    width: 80%;
+    height: 5em;
+    margin: 20px;
+    border: 1px solid;
+    border-radius: 15px;
+    background-color: #fff;
+    h2 {
+        flex:1;
+        position: relative;
+        left: 40px;
+        font-size:2rem;
+    }
+    .box{
+        display:flex;
+        font-size: 1.2rem;
+        justify-content: space-evenly;
+        width:70%;
+    }
+    .iconContainer{
+        display: flex; 
+        flex-direction: column;
+        gap: 15px;
+    }
+}

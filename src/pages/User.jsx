@@ -14,6 +14,11 @@ export default function UserPage() {
     const [isMounted, setMounted] = useState(false);
     const [count, setCount] = useState({startingSum: 0, currentSum:0});
 
+    //Modal
+    const [isModalOpen, setModalToOpen] = useState(false);
+
+    
+
     const getData = async () => {
         try {
             const [userUnformatted, accountData] = await Promise.all([
@@ -83,7 +88,7 @@ export default function UserPage() {
                     TextCard,
                     4, 
                     Account,
-                    'card_basic_slim')
+                    'card_button_slim')
                   }
             </div>
             <PieChart data={profileData.accountData.map(data =>
