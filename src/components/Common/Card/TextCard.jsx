@@ -2,6 +2,10 @@ import react from 'react';
 import './textCard.scss'
 import { CiCirclePlus, CiCircleMinus } from 'react-icons/ci';
 
+
+import ModalForm from '../../Modals/ModalForm';
+
+
 const Types = {
     BASIC: "card_basic", 
     BASIC_SLIM: "card_basic_slim",
@@ -35,12 +39,22 @@ dictionary.get(Types.BUTTON_SLIM).push(Account);
  * @returns 
  */
 export default function TextCard({style, data,}){
+    
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = () => setIsModalOpen(true);
+    const closeModal = () => setIsModalOpen(false);
+
+
+
+
     return (<section className={style}>
-        {selectCard(style,data)}
+        {selectCard(style,data, {openModal, closeModal})}
+        {isModalOpen ? <ModalForm closeModal={closeModal} /> : null}
     </section>)
 }
 
-function selectCard(style,data){
+function selectCard(style,data,interactions){
     let classElements;
     switch(style){
         case Types.BASIC:
@@ -64,7 +78,7 @@ function selectCard(style,data){
             classElements = dictionary.get(Types.BUTTON_SLIM)
             for(let i = 0; i <classElements.length; i++){
                 if(data instanceof Account)
-                    return TextCardLookup.buttonSlim(data)
+                    return TextCardLookup.buttonSlim(data,interactions)
             }
         default:
             return null;
@@ -106,7 +120,9 @@ class TextCardLookup {
         </>);
     }
 
-    static buttonSlim(data){
+    static buttonSlim(data,interactions){
+        const {openModal,closeModal} = interactions;
+        
         return (
         <>
             <h2>{data.account_num}</h2>
@@ -114,8 +130,8 @@ class TextCardLookup {
                 <div className="type">{data.type??"undefined"}</div>
                 <div className="number">${data.current??0}</div>
                 <div className="iconContainer">
-                    <CiCirclePlus style={{color:'green'}}/>
-                    <CiCircleMinus style={{color:'red'}}/>
+                    <CiCirclePlus style={{color:'green'}} onClick={openModal}/>
+                    <CiCircleMinus style={{color:'red'}} onClick={closeModal}/>
                 </div>
             </div>
         </>)

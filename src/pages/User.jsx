@@ -14,11 +14,6 @@ export default function UserPage() {
     const [isMounted, setMounted] = useState(false);
     const [count, setCount] = useState({startingSum: 0, currentSum:0});
 
-    //Modal
-    const [isModalOpen, setModalToOpen] = useState(false);
-
-    
-
     const getData = async () => {
         try {
             const [userUnformatted, accountData] = await Promise.all([
