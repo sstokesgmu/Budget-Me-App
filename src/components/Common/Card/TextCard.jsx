@@ -3,9 +3,9 @@ import { CiCirclePlus, CiCircleMinus } from 'react-icons/ci';
 import react,{useState} from 'react';
 
 import ModalForm from '../../Modals/ModalForm';
-import { GiConsoleController } from 'react-icons/gi';
-import { HiNewspaper } from 'react-icons/hi';
-import { SiQwant } from 'react-icons/si';
+
+import Library from '../../../utilities/Library';
+import {Account} from '../../../utilities/categories';
 
 
 const Types = {
@@ -15,7 +15,12 @@ const Types = {
     // TEXT_LINK:"card_link",
 }
 
-class TextCardLookup {
+class TextCardLibrary extends Library{
+
+    static MatchDataToComponent(Types,data){
+       return super.MatchDataToComponent(Types,data);
+    };
+
     static basic(data){
         return(<div className="contents">
             <h1 className="card-title">{data.name}</h1>
@@ -68,48 +73,17 @@ class TextCardLookup {
     }
 }
 
-export class Account {
-    constructor({account_num,type,date_opened,date_closed,starting_amount,current_amount}){
-        this.account_num=account_num, this.type=type,this.dateOpen=date_opened,
-        this.dateClosed=date_closed, this.start=starting_amount, this.current=current_amount
-    }
-}
-
 
 let dictionary = new Map();
 dictionary.set(Types.BASIC,[]);
-dictionary.get(Types.BASIC).push({class: undefined, func: TextCardLookup.basic}
-    , {class: Account, func: TextCardLookup.basicAccount}
+dictionary.get(Types.BASIC).push({class: undefined, func: TextCardLibrary.basic}
+    , {class: Account, func: TextCardLibrary.basicAccount}
 );
 
 dictionary.set(Types.BASIC_SLIM,[]);
-dictionary.get(Types.BASIC_SLIM).push({class:undefined, func:TextCardLookup.basicSlim},
-    {class:Account, func:TextCardLookup.basicSlimAccount}
+dictionary.get(Types.BASIC_SLIM).push({class:undefined, func:TextCardLibrary.basicSlim},
+    {class:Account, func:TextCardLibrary.basicSlimAccount}
 );
-
-
-// dictionary.set(Types.BUTTON_SLIM, []);
-// dictionary.get(Types.BUTTON_SLIM).push(Account);
-
-
-function FindComponentFunc(array,data){
-    //We are trying to find if the data matches a certain class passed in from the array 
-    let b = array.filter((element)=>{
-        if(typeof element.class === 'function') {
-            return data instanceof element.class; //A component with class data
-        }
-        return false; 
-    });
-
-    //If the data doesn't match any class instance then we know the component will have template data
-    if(b.length === 0) 
-        return array[0].func;
-
-    //Else: then the fitler found a match, data being and instance of class  
-     b = b[0]; 
-     const {func:componentFunc} = b;
-     return(componentFunc);
-}
 
 /**
  * Types:
@@ -133,18 +107,14 @@ export default function TextCard({style, data,}){
 }
 
 function selectCard(style,data, interactions = undefined){
-    let classElements;
     let handleReturn;
     switch(style){
         case Types.BASIC:
-              handleReturn = FindComponentFunc(dictionary.get(Types.BASIC),data);
+              handleReturn = TextCardLibrary.MatchDataToComponent(dictionary.get(Types.BASIC),data); 
                     return handleReturn(data);
         case Types.BASIC_SLIM:
-            handleReturn = FindComponentFunc(dictionary.get(Types.BASIC_SLIM),data);
+            handleReturn = TextCardLibrary.MatchDataToComponent(dictionary.get(Types.BASIC_SLIM),data);
                 return handleReturn(data);
-        // case Types.BUTTON_SLIM:
-        //     handleReturn = FindComponentFunc(dictionary.get(Types.BUTTON_SLIM),data);
-        //         return handleReturn(data);
         default:
             return null;
     }

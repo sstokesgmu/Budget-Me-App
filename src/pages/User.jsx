@@ -2,12 +2,13 @@ import react, { cloneElement } from 'react';
 import NavBar from '../components/Common/NavBar';
 import Table from '../components/Common/Table';
 import PieChart from '../components/Chart/PieChart.jsx';
-import TextCard,{Account} from '../components/Common/Card/TextCard.jsx';
+import TextCard from '../components/Common/Card/TextCard.jsx';
 import Profile from '../components/Common/Profile';
+import {Account} from '../utilities/categories.js';
 import {useState, useEffect,} from 'react';
 
 //Utility Functions
-import ComponentFactory from '../Factory.jsx';
+import factory from '../utilities/factory.js';
 
 export default function UserPage() {
     const [profileData, setData] = useState(null);
@@ -78,7 +79,7 @@ export default function UserPage() {
           <section style={{width:'100%', height:'35rem', display:'flex'}}>
             <div style={{width:'40%', display:'flex', flexDirection:'column', alignItems:'center'}}>
               <h2 style={{}}>Total Balance of Accounts</h2>
-                  {ComponentFactory.BuidlComponents(
+                  {factory.BuidlComponents(
                     profileData.accountData,
                     TextCard,
                     4, 
@@ -87,7 +88,7 @@ export default function UserPage() {
                   }
             </div>
             <PieChart data={profileData.accountData.map(data =>
-              ComponentFactory.FormatDataToMatchClass(Account,data)
+              factory.FormatDataToMatchClass(Account,data)
             )}/>        
           </section>
         </>

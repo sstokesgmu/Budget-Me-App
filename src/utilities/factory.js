@@ -1,5 +1,6 @@
 import React from 'react';
-import TextCard from './components/Common/Card/TextCard';
+
+
 export default class ComponentFactory {
     /**For building more complex components with formatted data*/
     /**
