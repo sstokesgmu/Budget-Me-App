@@ -12,26 +12,7 @@ export default function Form ({type, title}){
         "update-transaction":  {company:'', transType:'', amount:''},
     };
     
-    
-    
 
-    // let c = undefined;
-    // const getData = async (a) => {
-
-    //     const b = await fetch('http://192.168.1.162:8080/api/accounts').then(data => data.json());
-    //     //Object deconstrunct
-    //     c = b;
-    // }
-
-
-
-    // if(type == "update-account" | "update-transaction"){
-    //     useEffect(() => {
-    //         getData(type);
-    //         //configure state pass
-    //         console.log("Update form data is mounted");
-    //     },[])
-    // }
     const [formValue, setFormValue] = useState(ValidateAndReturn(type, FormType))
     const handleChange = (event) => {
         const {name,value} = event.target;

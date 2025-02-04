@@ -1,6 +1,7 @@
 import react from 'react'
 import NavBar from '../components/Common/NavBar'
 import TransactionChart from '../components/Chart/TransChart';
+import ModalForm from '../components/Modals/ModalForm';
 
 export default function Dashboard(){
 
@@ -34,7 +35,8 @@ export default function Dashboard(){
                 <h1>History</h1>
                 <p>Timeframe Between 1/29 to 1/102</p>
             </section>
-        </div>           
+        </div>    
+        <ModalForm/>
     </>
     );
 }
