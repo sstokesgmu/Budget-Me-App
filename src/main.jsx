@@ -27,7 +27,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/form',
-    element:<Form type={'create-transaction'} title={'Create Transaction'}/>,
+    element:<Form/>,
     errorElement:<h1>404 not found</h1>
 
   },

@@ -1,5 +1,6 @@
 import react from 'react';
 import IconButton from './Icon-Button';
+import './button.scss'
 
 //! If we need render and style additional icons besides the two consider the building
 //! through the Dictionary look up method 
@@ -13,21 +14,19 @@ const Types = {
     HOVER: 'button_hover',
 }
 
-export default function TextButton({style, text, func}){
+export default function TextButton({type,  text, func}){
     return(
         <>
-            <div style={{border:"solid"}}>
-                {selectButton(style,text,func)}
-            </div>
+            {selectButton(type,text,func)}
         </>
     );
 }
 
-function selectButton(style,text,func){
-    switch (style) {
+function selectButton(type,text,func){
+    switch (type) {
         case Types.HOVER:
             return (
-                <div className={style} onClick={func}>
+                <div onClick={func}>
                     <h2>{text}</h2>
                 </div>
             );

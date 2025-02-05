@@ -1,7 +1,7 @@
 import react,{useEffect,useState}from 'react'
 import NavBar from '../components/Common/NavBar'
 import TransactionChart from '../components/Chart/TransChart';
-import Profile from '../components/Common/Profile';
+import Profile from '../components/Common/Profile/Profile.jsx';
 import ModalForm from '../components/Modals/ModalForm';
 import ComponentFactory from '../utilities/factory.js'
 import {Bucket, Transaction, AccountOPS} from '../utilities/categories.js'

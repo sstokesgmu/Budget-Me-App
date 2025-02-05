@@ -2,7 +2,7 @@ import react, { cloneElement } from 'react';
 import NavBar from '../components/Common/NavBar';
 import PieChart from '../components/Chart/PieChart.jsx';
 import TextCard from '../components/Common/Card/TextCard.jsx';
-import Profile from '../components/Common/Profile';
+import Profile from '../components/Common/Profile/Profile.jsx';
 import {Account} from '../utilities/categories.js';
 import {useState, useEffect,} from 'react';
 

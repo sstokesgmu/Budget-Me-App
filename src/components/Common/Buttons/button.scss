@@ -1,0 +1,21 @@
+
+
+.button_hover {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    .button_hover:hover {
+        transform: scale(1.05); /* Slightly increase size on hover */
+    }
+    
+    .button_hover h2 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    
+}
+
+
