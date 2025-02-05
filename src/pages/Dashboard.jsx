@@ -7,56 +7,64 @@ import ModalForm from '../components/Modals/ModalForm';
 export default function Dashboard(){
     //States we need to manage is the change in bucket and the change in accounts
     const [selectedAccount, setSelectedAccount] = useState(null);
-    const [selectedBucket,setSelectedBucket] = useState({}); 
-
+    const [selectedBucket,setSelectedBucket] = useState(''); 
     
     const [accounts, setAccounts] = useState([]);
-    const [buckets, setBuckets] = useState(null);
+    const [buckets, setBuckets] = useState([]);
     const [data, setData] = useState(null); 
 
 
-    const mount = async() => {
-        try{    
-            const user = await fetch('https://budgetapp-vdsp.onrender.com/api/users?fields=accounts')
-                                    .then(data => data.json());
-            const accounts = user[0].accounts;
-            const buckets = await fetch(`https://budgetapp-vdsp.onrender.com/api/transactions/${accounts[0]}`).then(data => data.json());
-            //we'regetting the first of the return
-        
-            //save all possiblities to state
-            setAccounts(accounts);
-            setBuckets(buckets);
+    //Fetch Accounts only runs one mount
+    useEffect(()=> {
+        const fetchAccounts = async () => {
+            try {
+                const user = await fetch('https://budgetapp-vdsp.onrender.com/api/users?fields=accounts').then(data => data.json());
+                setAccounts(user[0].accounts); //Select the first user's accounts
+                setSelectedAccount(user[0].accounts[0]); //Set the selected account to 
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        fetchAccounts();
+        console.log("Page is mounted");
+    }, []); 
 
-            setSelectedAccount(accounts[0]);
-            setSelectedBucket(bucket[0]._id);
-
-        } catch(e){
-            console.error("Error fetching data");
+    useEffect(()=>{
+        if(selectedAccount) {
+            const fetchBuckets = async() => {
+                try {
+                    const buckets = await fetch(`https://budgetapp-vdsp.onrender.com/api/transactions/${selectedAccount}`)
+                                        .then(data => data.json());                 
+                    setBuckets(buckets);
+                    setSelectedBucket(buckets[0]?._id);
+                } catch(e) {
+                    console.error(e);
+                }
+            };
+            fetchBuckets();
         }
+    }, [selectedAccount]);
+
+    useEffect(() => {
+        if(buckets.length > 0 && selectedBucket){
+            let result = findBucket();
+            if (result.length > 0 ){
+                calculateDate(result[0])
+            }
+        }
+    }, [buckets,selectedBucket])
+
+    const findBucket = () => {
+        return buckets.filter(bucket => bucket._id === selectedBucket);
     }
-    useEffect(()=>{
-        mount();
-        console.log('The page is mounted');
-    },[]);
 
-
-
-
-
-    useEffect(()=>{
-        //Get 
-    },[selectedAccount]);
-    // useEffect(()=>{
-
-    // },[selectedBucket])
-
-
-
-    // useEffect(() => {})
-
-        console.log(buckets)
-        console.log(accounts);
-
+    function calculateDate (obj) {
+        console.log(obj);
+        console.log(obj.start_date.substring(0,10));    
+        const start = new Date(obj.start_date.substring(0,10)); 
+        //console.log(start.toLocaleDateString()); //Returns the M/D`/YYYY format
+        const end = new Date(obj.end_date.substring(0,10));
+    }
 
     //Data we need accounts (number, bucket) transaction buckets of those account 
     return( 
@@ -65,23 +73,39 @@ export default function Dashboard(){
             <pre>{JSON.stringify(selectedBucket, null, 2)}</pre> {/* Display bucket id if it's an object */}
             <div>
                 <h3>Accounts Menu</h3>
-                <select>
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
+                <select onChange={(e) => setSelectedAccount(e.target.value)} value={selectedAccount}>
+                    {
+                        accounts.map(account => (
+                            <option key={account} value={account}>
+                                {account}
+                            </option>
+                        ))}
                 </select>
             </div>
-
-            
             <div>
-                <h3>BucketMenu</h3>
-                <select>
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
+                <h2>Bucket Menu</h2>
+                <select onChange={(e) => setSelectedBucket(e.target.value)} value={selectedBucket}>
+                    {buckets && buckets.map(bucket => (
+                        <option key={bucket._id} value={bucket._id}>
+                            {bucket._id}
+                        </option>
+                    ))}
                 </select>
             </div>
-
+            <section style={{
+                display: 'flex',
+                flex:1, 
+                flexDirection: 'column', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                height: '100vh',  // Ensures full viewport height
+                textAlign: 'center' // Centers text horizontally inside the section
+            }}>
+                <h1>Transaction Insights</h1>
+                <TransactionChart/>
+                <h1>History</h1>
+                <p>Timeframe Between 1/29 to 1/102</p>
+            </section>
 
         {/* <pre>{JSON.stringify(profileData,null,2)}</pre>
         <NavBar/>
