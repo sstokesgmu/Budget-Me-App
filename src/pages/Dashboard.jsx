@@ -3,6 +3,10 @@ import NavBar from '../components/Common/NavBar'
 import TransactionChart from '../components/Chart/TransChart';
 import Profile from '../components/Common/Profile';
 import ModalForm from '../components/Modals/ModalForm';
+import factory from '../utilities/factory.js'
+import { VscCalendar } from 'react-icons/vsc';
+
+import {Bucket, Transaction} from '../utilities/categories.js'
 
 export default function Dashboard(){
     //States we need to manage is the change in bucket and the change in accounts
@@ -11,6 +15,9 @@ export default function Dashboard(){
     
     const [accounts, setAccounts] = useState([]);
     const [buckets, setBuckets] = useState([]);
+    const [transactions, setTransactions] = useState([]);
+
+
     const [data, setData] = useState(null); 
 
 
@@ -36,7 +43,10 @@ export default function Dashboard(){
                     const buckets = await fetch(`https://budgetapp-vdsp.onrender.com/api/transactions/${selectedAccount}`)
                                         .then(data => data.json());                 
                     setBuckets(buckets);
-                    setSelectedBucket(buckets[0]?._id);
+                    const bucket = buckets[0];
+                    setSelectedBucket(bucket._id); //Change we want to allow the user to select and bucket
+                    //const formatedBucket = factory.FormatDataToMatchClass(Bucket,{date: bucket.start_date, amount: })
+                    setTransactions(bucket.transactions.map(element => factory.FormatDataToMatchClass(Transaction, element)))
                 } catch(e) {
                     console.error(e);
                 }
@@ -49,6 +59,7 @@ export default function Dashboard(){
         if(buckets.length > 0 && selectedBucket){
             let result = findBucket();
             if (result.length > 0 ){
+                console.log(result);
                 calculateDate(result[0])
             }
         }
@@ -59,8 +70,6 @@ export default function Dashboard(){
     }
 
     function calculateDate (obj) {
-        console.log(obj);
-        console.log(obj.start_date.substring(0,10));    
         const start = new Date(obj.start_date.substring(0,10)); 
         //console.log(start.toLocaleDateString()); //Returns the M/D`/YYYY format
         const end = new Date(obj.end_date.substring(0,10));
@@ -102,7 +111,7 @@ export default function Dashboard(){
                 textAlign: 'center' // Centers text horizontally inside the section
             }}>
                 <h1>Transaction Insights</h1>
-                <TransactionChart/>
+                <TransactionChart datas={transactions}/>
                 <h1>History</h1>
                 <p>Timeframe Between 1/29 to 1/102</p>
             </section>

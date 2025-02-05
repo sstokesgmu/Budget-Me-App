@@ -4,3 +4,15 @@ export class Account {
         this.dateClosed=date_closed, this.start=starting_amount, this.current=current_amount
     }
 }
+
+export class Transaction {
+    constructor({date, amount, trans_type, comp_name}) {
+        this.date = date, this.amount = amount, this.type = trans_type, this.company = comp_name;
+    }
+}
+
+export class Bucket{
+    constructor({date,amount,accountNumber}){
+        this.data = date, this.amount = amount, this.accountNumber = accountNumber 
+    }
+}
