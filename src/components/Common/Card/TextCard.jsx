@@ -47,20 +47,22 @@ class TextCardLibrary extends Library{
     }
     static basicSlimAccount(data){
        return( <>
-            <h2>{data.account_num}</h2>
+            <h2>{data.company}</h2>
             <div className="box">
+                <div>{data.date}</div>
                 <div className="type">{data.type??"undefined"}</div>
-                <div className="number">${data.current??0}</div>
+                <div className="number">${data.amount??0}</div>
             </div>
         </>);
     }
 
     static basicSlimTransaction(data){
+        
         return( <>
-             <h2>{data.account_num}</h2>
+             <h2>{data.company}</h2>
              <div className="box">
-                 <div className="type">{data.type??"undefined"}</div>
-                 <div className="number">${data.current??0}</div>
+                 <div className="type">{data.amount??"undefined"}</div>
+                 <div className="number">{data.date??0}</div>
              </div>
          </>);
      }
@@ -93,7 +95,8 @@ dictionary.set(Types.BASIC_SLIM,[]);
 dictionary.get(Types.BASIC_SLIM).push(
     {class:undefined, func:TextCardLibrary.basicSlim},
     {class:Account, func:TextCardLibrary.basicSlimAccount},
-    
+    {class:Transaction, func:TextCardLibrary.basicSlimTransaction}
+
 );
 
 /**

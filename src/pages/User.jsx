@@ -7,7 +7,7 @@ import {Account} from '../utilities/categories.js';
 import {useState, useEffect,} from 'react';
 
 //Utility Functions
-import Factory from '../utilities/factory.js';
+import ComponentFactory from '../utilities/factory.js';
 
 export default function UserPage() {
     const [profileData, setData] = useState(null);
@@ -77,7 +77,10 @@ export default function UserPage() {
           <section style={{width:'100%', height:'35rem', display:'flex'}}>
             <div style={{width:'40%', display:'flex', flexDirection:'column', alignItems:'center'}}>
               <h2 style={{}}>Total Balance of Accounts</h2>
-                  {Factory.BuidlComponents(
+                  
+                  
+                  
+                  {ComponentFactory.BuidlComponentsWithClass(
                     profileData.accountData,
                     TextCard,
                     4, 
@@ -86,7 +89,7 @@ export default function UserPage() {
                   }
             </div>
             <PieChart data={profileData.accountData.map(data =>
-              Factory.FormatDataToMatchClass(Account,data)
+              ComponentFactory.FormatDataToMatchClass(Account,data)
             )}/>        
           </section>
         </>

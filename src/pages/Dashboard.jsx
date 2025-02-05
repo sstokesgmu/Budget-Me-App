@@ -3,15 +3,17 @@ import NavBar from '../components/Common/NavBar'
 import TransactionChart from '../components/Chart/TransChart';
 import Profile from '../components/Common/Profile';
 import ModalForm from '../components/Modals/ModalForm';
-import factory from '../utilities/factory.js'
-
-
+import ComponentFactory from '../utilities/factory.js'
 import {Bucket, Transaction, AccountOPS} from '../utilities/categories.js'
+
+
+import TextCard from '../components/Common/Card/TextCard.jsx';
+
 
 export default function Dashboard(){
     //States we need to manage is the change in bucket and the change in accounts
     const [selectedAccount, setSelectedAccount] = useState(null);
-    const [selectedBucket,setSelectedBucket] = useState(''); 
+    const [selectedBucket,setSelectedBucket] = useState(null); 
     
     const [accounts, setAccounts] = useState([]);
     const [buckets, setBuckets] = useState([]);
@@ -27,7 +29,7 @@ export default function Dashboard(){
                 const user = await fetch('https://budgetapp-vdsp.onrender.com/api/users?fields=accounts').then(data => data.json());
                 // setAccounts(user[0].accounts); //Select the first user's accounts
                 let result = await fetch('https://budgetapp-vdsp.onrender.com/api/accounts').then(data => data.json());
-                const accountWithOps = result.map(element => factory.FormatDataToMatchClass(AccountOPS,element));
+                const accountWithOps = result.map(element => ComponentFactory.FormatDataToMatchClass(AccountOPS,element));
                 setAccounts(accountWithOps); //Cache out objects 
                 setSelectedAccount(accountWithOps[0].number); //Set the selected account to
             } catch (e) {
@@ -42,19 +44,17 @@ export default function Dashboard(){
         if(selectedAccount) {
             const fetchBuckets = async() => {
                 try {
-                    
                     //Returns the buckets tied to a specific account from newest to oldest
                     let result = await fetch(`https://budgetapp-vdsp.onrender.com/api/transactions/${selectedAccount}`).then(data => data.json());                 
                     
                     //Format the data to be an instance of the bucket class
                     result = result.map((bucket,index ) => {
                         // give the bucket a name
-                        bucket.name = `Bucket: ${index}`;
-                        return factory.FormatDataToMatchClass(Bucket,bucket);
+                        bucket.name = `Bucket: ${index + 1}`;
+                        return ComponentFactory.FormatDataToMatchClass(Bucket,bucket);
                     })
                     setBuckets(result);
-                    setSelectedBucket(result[0].id) //Grab
-
+                    setSelectedBucket(result[0]) //Grab
 
 
 
@@ -78,32 +78,35 @@ export default function Dashboard(){
         }
     }, [selectedAccount]);
 
-    useEffect(() => {
-        if(buckets.length > 0 && selectedBucket){
-            let result = findBucket();
-            if (result.length > 0 ){
-                console.log(result);
-                calculateDate(result[0])
-            }
-        }
-    }, [buckets,selectedBucket])
 
-    const findBucket = () => {
-        return buckets.filter(bucket => bucket._id === selectedBucket);
-    }
 
-    function calculateDate (obj) {
-        const start = new Date(obj.start_date.substring(0,10)); 
-        //console.log(start.toLocaleDateString()); //Returns the M/D`/YYYY format
-        const end = new Date(obj.end_date.substring(0,10));
-    }
+
+    const handleBucketChange = (e) =>{
+        e.preventDefault();
+        const result = buckets.filter((element) =>  element.id === e.target.value);
+        setSelectedBucket(result[0]);
+   }
+
+
+    // const findBucket = () => {
+    //     return buckets.filter(bucket => bucket.id === selectedBucket.id);
+    // }
+
+    // function calculateDate (obj) {
+    //     const start = new Date(obj.start_date.substring(0,10)); 
+    //     //console.log(start.toLocaleDateString()); //Returns the M/D`/YYYY format
+    //     const end = new Date(obj.end_date.substring(0,10));
+    // }
 
 
     //Data we need accounts (number, bucket) transaction buckets of those account 
+    const loaded = () => {
     return( 
     <>
+            <NavBar/>
             <pre>{JSON.stringify(selectedAccount, null, 2)}</pre> {/* JSON stringify to display object */}
-            <pre>{JSON.stringify(selectedBucket, null, 2)}</pre> {/* Display bucket id if it's an object */}
+            <pre>{selectedBucket ? JSON.stringify(selectedBucket.id, null, 2) : "No bucket selected"}</pre>
+
             <div>
                 <h3>Accounts Menu</h3>
                 <select onChange={(e) => setSelectedAccount(e.target.value)} value={selectedAccount}>
@@ -120,10 +123,10 @@ export default function Dashboard(){
             </div>
             <div>
                 <h2>Bucket Menu</h2>
-                <select onChange={(e) => setSelectedBucket(e.target.value)} value={selectedBucket}>
+                <select onChange={handleBucketChange} value={selectedBucket.id}>
                     {/*If the bucket exist then run the operation*/}
-                   { buckets && buckets.map((bucket,index) => {
-                        return(<option key={index} value={bucket.id}>
+                    {buckets && buckets.map((bucket,index) => {
+                        return(<option key={index + 1} value={bucket.id}>
                             {bucket.name}
                         </option>)
                    })}
@@ -142,12 +145,20 @@ export default function Dashboard(){
                 <h1>Transaction Insights</h1>
                 <TransactionChart/>
             </section>
-            <section>
+            <section style={{
+                display: 'flex',
+                flex:1, 
+                flexDirection: 'column', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                height: '100vh',  // Ensures full viewport height
+                textAlign: 'center' // Centers text horizontally inside the section>
+            }}>
                 <h1>History</h1>
-                <p>Timeframe Between 1/29 to 1/102</p>
+                <p>{`Timeframe between ${selectedBucket.start_date} and ${selectedBucket.end_date} `}</p>
+                {console.log(selectedBucket)}
+               {selectedBucket.transactions && ComponentFactory.BuidlComponents(selectedBucket.transactions, 5, TextCard,"card_basic_slim")}        
             </section>
-            
-
         {/* <pre>{JSON.stringify(profileData,null,2)}</pre>
         <NavBar/>
         //Todo: Preformatted Text
@@ -177,6 +188,7 @@ export default function Dashboard(){
             </section>
         </div>    
         <ModalForm/> */}
-    </>
-    );
+    </>)};
+    const loading = () => {return <h1>Loading ... </h1>}
+    return selectedBucket ? loaded() : loading();
 }

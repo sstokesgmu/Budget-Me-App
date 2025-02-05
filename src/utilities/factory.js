@@ -19,7 +19,16 @@ export default class ComponentFactory {
      * @param {*} template - template component you want to copy
      * @param {*} classModel - Instance of the class your want to create
      */
-    static BuidlComponents(array, template, limit, classModel, style){
+
+    
+    static BuidlComponents(array,limit,template,style){
+        limit = Math.min(limit,array.length);
+        //create a shallow copy of an array, and then map and return a new array 
+        return array.slice(0,limit).map((element,index) => {
+            return React.createElement(template, {key:index, data:element, style:style});
+        });
+    }
+    static BuidlComponentsWithClass(array, template, limit, classModel, style){
         limit = Math.min(limit,array.length);
         //create a shallow copy of an array, and then map and return a new array 
         return array.slice(0,limit).map((data,index) => {
@@ -27,6 +36,7 @@ export default class ComponentFactory {
             return React.createElement(template, {key:index, data:instance, style:style});
         });
     }
+
 
     /**
      * @param {class} classConstructor 
