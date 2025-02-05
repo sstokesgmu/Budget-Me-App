@@ -106,8 +106,11 @@ export default function Dashboard(){
             <NavBar/>
             <pre>{JSON.stringify(selectedAccount, null, 2)}</pre> {/* JSON stringify to display object */}
             <pre>{selectedBucket ? JSON.stringify(selectedBucket.id, null, 2) : "No bucket selected"}</pre>
-
-            <div>
+            <div style={{display:'flex'}}>
+            <section style={{width:'20%',border:"solid"}}>
+                <Profile renderStyle={'profile_small'} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
+                <section style={{backgroundColor:'', height:'30%', position:'relative', top:'6rem'}}>
+                <div>
                 <h3>Accounts Menu</h3>
                 <select onChange={(e) => setSelectedAccount(e.target.value)} value={selectedAccount}>
                     {
@@ -120,19 +123,23 @@ export default function Dashboard(){
                             )
                         })}
                 </select>
-            </div>
-            <div>
-                <h2>Bucket Menu</h2>
-                <select onChange={handleBucketChange} value={selectedBucket.id}>
-                    {/*If the bucket exist then run the operation*/}
-                    {buckets && buckets.map((bucket,index) => {
-                        return(<option key={index + 1} value={bucket.id}>
-                            {bucket.name}
-                        </option>)
-                   })}
-                </select>
-            </div>
-              
+            </div>         
+                </section>
+                <section style={{backgroundColor:'blue', height:'30%', position:'relative', top:'10rem'}}>
+                    
+                <div>
+                    <h2>Bucket Menu</h2>
+                    <select onChange={handleBucketChange} value={selectedBucket.id}>
+                        {/*If the bucket exist then run the operation*/}
+                        {buckets && buckets.map((bucket,index) => {
+                            return(<option key={index + 1} value={bucket.id}>
+                                {bucket.name}
+                            </option>)
+                    })}
+                    </select>
+                </div>
+                </section>
+            </section>
             <section style={{
                 display: 'flex',
                 flex:1, 
@@ -145,6 +152,7 @@ export default function Dashboard(){
                 <h1>Transaction Insights</h1>
                 <TransactionChart/>
             </section>
+        </div> 
             <section style={{
                 display: 'flex',
                 flex:1, 
@@ -162,31 +170,7 @@ export default function Dashboard(){
         {/* <pre>{JSON.stringify(profileData,null,2)}</pre>
         <NavBar/>
         //Todo: Preformatted Text
-        <div style={{display:'flex'}}>
-            <section style={{width:'20%',border:"solid"}}>
-                <Profile renderStyle={'profile_small'} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
-                <section style={{backgroundColor:'red', height:'30%', position:'relative', top:'6rem'}}>
-                    hello
-                </section>
-                <section style={{backgroundColor:'blue', height:'30%', position:'relative', top:'10rem'}}>
-                    hello
-                </section>
-            </section>
-            <section style={{
-                display: 'flex',
-                flex:1, 
-                flexDirection: 'column', 
-                justifyContent: 'center', 
-                alignItems: 'center', 
-                height: '100vh',  // Ensures full viewport height
-                textAlign: 'center' // Centers text horizontally inside the section
-            }}>
-                <h1>Transaction Insights</h1>
-                <TransactionChart/>
-                <h1>History</h1>
-                <p>Timeframe Between 1/29 to 1/102</p>
-            </section>
-        </div>    
+       
         <ModalForm/> */}
     </>)};
     const loading = () => {return <h1>Loading ... </h1>}
