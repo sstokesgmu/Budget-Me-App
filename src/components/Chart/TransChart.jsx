@@ -3,13 +3,13 @@ import { LineChart, Line, CartesianGrid, XAxis,YAxis, ResponsiveContainer } from
 
 export default function TransactionChart ({datas}){
 
-    console.log("hello");
-    console.log(datas.map(element => { 
-      return {
-        "name": new Date(element.date),
-        "amt": element.amount,
-      }
-    }));
+    // console.log("hello");
+    // console.log(datas.map(element => { 
+    //   return {
+    //     "name": new Date(element.date),
+    //     "amt": element.amount,
+    //   }
+    // }));
     return (
         <ResponsiveContainer className='transChart' width={700} height="80%">
             <LineChart data={data}>

@@ -5,16 +5,15 @@ export class Account {
     }
 }
 
-export class AcccontOPs {
-    constructor (accountNumber, starting_amount, current_amount){
-        this.number = accountNumber, this.starting_amount = starting_amount, this.current_amount=current_amount
+export class AccountOPS {
+    constructor ({account_num, starting_amount, current_amount}){
+        this.number = account_num, this.starting_amount = starting_amount, this.current_amount=current_amount
     }
     balancesOverTime = [];
     setBalanceOverTime(beginingBalance, bucketId, timeframe) {
         this.balancesOverTime.push({duration: timeframe, bucketId: bucketId, balance: beginingBalance})
     }
     getBalanceOverTime(timeframe){
-        console.log(timeframe);
         return this.balancesOverTime.filter(element =>{ 
             console.log(element.duration);
             return element.duration === timeframe
@@ -29,19 +28,13 @@ export class Transaction {
 }
 
 export class Bucket{
-
-    // transactions;
-    // constructor({})
-    // sendID
-    constructor ({account_id, start_date, end_date, transactions, _id}){
+    constructor ({account_id, start_date, end_date, transactions, _id, name}){
         this.sourceId = account_id, this.start_date = start_date, this.end_date = end_date, 
-        this.transactions = transactions.map(element => new Transaction(element)), this.id = _id
+        this.transactions = transactions.map(element => new Transaction(element)), this.id = _id,
+        this.name = name
     }
-
     getObjectId(){return this.id};
-
     calculateDuration(){};
-
     calculateTheSumOfTransactions(){
         let sum = 0;
         this.transactions.forEach(element => {
@@ -57,8 +50,3 @@ export class Bucket{
         return sum;
     }
 }
-
-
-
-    
-// }

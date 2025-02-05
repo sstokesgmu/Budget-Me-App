@@ -4,7 +4,7 @@ import react,{useState} from 'react';
 
 
 import Library from '../../../utilities/Library';
-import {Account} from '../../../utilities/categories';
+import {Account, Transaction} from '../../../utilities/categories';
 
 
 const Types = {
@@ -55,6 +55,16 @@ class TextCardLibrary extends Library{
         </>);
     }
 
+    static basicSlimTransaction(data){
+        return( <>
+             <h2>{data.account_num}</h2>
+             <div className="box">
+                 <div className="type">{data.type??"undefined"}</div>
+                 <div className="number">${data.current??0}</div>
+             </div>
+         </>);
+     }
+
     // static buttonSlim(data,interactions){
     //     const {openModal,closeModal} = interactions;
     //     return (
@@ -80,8 +90,10 @@ dictionary.get(Types.BASIC).push({class: undefined, func: TextCardLibrary.basic}
 );
 
 dictionary.set(Types.BASIC_SLIM,[]);
-dictionary.get(Types.BASIC_SLIM).push({class:undefined, func:TextCardLibrary.basicSlim},
-    {class:Account, func:TextCardLibrary.basicSlimAccount}
+dictionary.get(Types.BASIC_SLIM).push(
+    {class:undefined, func:TextCardLibrary.basicSlim},
+    {class:Account, func:TextCardLibrary.basicSlimAccount},
+    
 );
 
 /**
