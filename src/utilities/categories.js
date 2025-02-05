@@ -5,6 +5,23 @@ export class Account {
     }
 }
 
+export class AcccontOPs {
+    constructor (accountNumber, starting_amount, current_amount){
+        this.number = accountNumber, this.starting_amount = starting_amount, this.current_amount=current_amount
+    }
+    balancesOverTime = [];
+    setBalanceOverTime(beginingBalance, bucketId, timeframe) {
+        this.balancesOverTime.push({duration: timeframe, bucketId: bucketId, balance: beginingBalance})
+    }
+    getBalanceOverTime(timeframe){
+        console.log(timeframe);
+        return this.balancesOverTime.filter(element =>{ 
+            console.log(element.duration);
+            return element.duration === timeframe
+        });
+    }
+}
+
 export class Transaction {
     constructor({date, amount, trans_type, comp_name}) {
         this.date = date, this.amount = amount, this.type = trans_type, this.company = comp_name;
@@ -12,7 +29,36 @@ export class Transaction {
 }
 
 export class Bucket{
-    constructor({date,amount,accountNumber}){
-        this.data = date, this.amount = amount, this.accountNumber = accountNumber 
+
+    // transactions;
+    // constructor({})
+    // sendID
+    constructor ({account_id, start_date, end_date, transactions, _id}){
+        this.sourceId = account_id, this.start_date = start_date, this.end_date = end_date, 
+        this.transactions = transactions.map(element => new Transaction(element)), this.id = _id
+    }
+
+    getObjectId(){return this.id};
+
+    calculateDuration(){};
+
+    calculateTheSumOfTransactions(){
+        let sum = 0;
+        this.transactions.forEach(element => {
+            const withdrawl_re = new RegExp("\\bwithdrawl\\b", "i");
+            if (withdrawl_re.test(element.type)) {
+                // Logic for matching withdrawal
+                console.log("Withdrawal found:", element);
+                sum -= element.amount;
+            } else {
+                sum += element.amount;
+            }
+        })
+        return sum;
     }
 }
+
+
+
+    
+// }

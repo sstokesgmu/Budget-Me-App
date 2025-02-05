@@ -4,7 +4,7 @@ import TransactionChart from '../components/Chart/TransChart';
 import Profile from '../components/Common/Profile';
 import ModalForm from '../components/Modals/ModalForm';
 import factory from '../utilities/factory.js'
-import { VscCalendar } from 'react-icons/vsc';
+
 
 import {Bucket, Transaction} from '../utilities/categories.js'
 
@@ -13,9 +13,10 @@ export default function Dashboard(){
     const [selectedAccount, setSelectedAccount] = useState(null);
     const [selectedBucket,setSelectedBucket] = useState(''); 
     
-    const [accounts, setAccounts] = useState([]);
+    const [accountNums, setAccounts] = useState([]);
     const [buckets, setBuckets] = useState([]);
     const [transactions, setTransactions] = useState([]);
+
 
 
     const [data, setData] = useState(null); 
@@ -27,7 +28,7 @@ export default function Dashboard(){
             try {
                 const user = await fetch('https://budgetapp-vdsp.onrender.com/api/users?fields=accounts').then(data => data.json());
                 setAccounts(user[0].accounts); //Select the first user's accounts
-                setSelectedAccount(user[0].accounts[0]); //Set the selected account to 
+                setSelectedAccount(user[0].accounts[0]); //Set the selected account to
             } catch (e) {
                 console.error(e);
             }
@@ -47,6 +48,10 @@ export default function Dashboard(){
                     setSelectedBucket(bucket._id); //Change we want to allow the user to select and bucket
                     //const formatedBucket = factory.FormatDataToMatchClass(Bucket,{date: bucket.start_date, amount: })
                     setTransactions(bucket.transactions.map(element => factory.FormatDataToMatchClass(Transaction, element)))
+
+                    for(let i = 0, balance = 40000; i <  transactions.length; i++) {
+                        console.log(balance -= transactions[i].amount);
+                    }
                 } catch(e) {
                     console.error(e);
                 }
@@ -84,7 +89,7 @@ export default function Dashboard(){
                 <h3>Accounts Menu</h3>
                 <select onChange={(e) => setSelectedAccount(e.target.value)} value={selectedAccount}>
                     {
-                        accounts.map(account => (
+                        accountNums.map(account => (
                             <option key={account} value={account}>
                                 {account}
                             </option>
