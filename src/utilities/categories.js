@@ -5,6 +5,12 @@ export class Account {
     }
 }
 
+export class Blank_Account{
+    constructor(){
+        this.account_num = undefined, this.type = undefined, this.amount = 0
+    }
+}
+
 export class AccountOPS {
     constructor ({account_num, starting_amount, current_amount}){
         this.number = account_num, this.starting_amount = starting_amount, this.current_amount=current_amount
@@ -27,6 +33,11 @@ export class Transaction {
     }
 }
 
+export class Blank_Transaction {
+    constructor(){
+        this.amount = 0, this.type =null, this.company ='';
+    }    
+}
 export class Bucket{
     constructor ({account_id, start_date, end_date, transactions, _id, name}){
         this.sourceId = account_id, this.start_date = start_date, this.end_date = end_date, 
