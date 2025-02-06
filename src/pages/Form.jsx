@@ -120,9 +120,9 @@ export default function Form() {
    
 
     const [isMounted, setMounted] = useState(false);
+    
  
     const observer = new Observer();
-
     useEffect(()=>{
         observer.Peek().then(() => {
             setObserver({
@@ -130,7 +130,6 @@ export default function Form() {
                 buckets: observer.getBucketInfo()
             })
         })
-
         setMounted(true);
     },[])
 

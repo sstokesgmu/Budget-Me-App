@@ -43,12 +43,13 @@ class TextCardLibrary extends Library{
         );
     }
     static basicSlimAccount(data){
+        console.log(data);
        return( <>
-            <h2>{data.company}</h2>
+            <h2>{data.account_num}</h2>
             <div className="box">
                 <div>{data.date}</div>
                 <div className="type">{data.type??"undefined"}</div>
-                <div className="number">${data.amount??0}</div>
+                <div className="number">${data.current??0}</div>
             </div>
         </>);
     }
