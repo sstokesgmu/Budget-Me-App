@@ -9,8 +9,8 @@ export default function NavBar(){
                 <div className = "icon">BudgetMe</div>
                 <NavLink to="/" activeClassName='active'>Home</NavLink>
                 <NavLink to='/account'activeClassName='active'>Account</NavLink>
-                <NavLink to='/budget' activeClassName='active'>Budget</NavLink>
-                <NavLink to='/form' activeClassName='active'>Test Components</NavLink>
+                {/* <NavLink to='/budget' activeClassName='active'>Budget</NavLink> */}
+                <NavLink to='/form' activeClassName='active'>Form</NavLink>
             </section>
         </>
     )

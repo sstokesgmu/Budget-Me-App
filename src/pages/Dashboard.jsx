@@ -116,7 +116,7 @@ export default function Dashboard(){
                 </select>
             </div>         
                 </section>
-                <section style={{backgroundColor:'blue', height:'30%', position:'relative', top:'10rem'}}>
+                <section style={{height:'30%', position:'relative', top:'10rem'}}>
                     
                 <div>
                     <h2>Bucket Menu</h2>

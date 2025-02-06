@@ -68,7 +68,7 @@ export default function UserPage() {
       return (
         <>
           <NavBar/>
-          <pre>{JSON.stringify(profileData,null,2)}</pre>
+          {/* <pre>{JSON.stringify(profileData,null,2)}</pre> */}
           {/*Card container*/}
           <section style={{display:"flex", marginBottom: "10rem",flexflow:"row no-wrap"}}>
               <Profile renderStyle={"profile_big"} data={{src:"src/assets/sfa3-akuma2.jpg", alt:"Akuma Picture"}}/>
