@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 import './form.scss';
-import Library from '../utilities/Library';
+import Library, {Observer} from '../utilities/Library';
 import { Blank_Account,Blank_Transaction} from '../utilities/categories';
 import TextButton from '../components/Common/Buttons/Text-Button';
 import NavBar from '../components/Common/NavBar';
+
+
+
+
 
 const Types = {
     CREATE: "create-form",
@@ -97,13 +101,33 @@ class FormLibrary extends Library {
     }
 }
 
+class RouteLibrary extends Library {
+
+}
+
 export default function Form() {
     const [clear, setClear] = useState(false); // Reset back to initial state
     const [formCreated, setFormCreated] = useState(false);
     const [formValue, setFormValue] = useState(null);
     const [requestType, setRequestType] = useState(Types.CREATE); // Default to CREATE
     const [entityType, setEntityType] = useState("Account"); // Default to Account
+    const [observerData, setObserver] = useState(null);
 
+
+    const [isMounted, setMounted] = useState(false);
+ 
+    const observer = new Observer();
+
+    useEffect(()=>{
+        observer.Peek().then(() => {
+            setObserver({
+                accounts: observer.getAccountInfo(),
+                buckets: observer.getBucketInfo()
+            })
+        })
+
+        setMounted(true);
+    },[])
 
     useEffect(() => {
         console.log("hello from useEffect");
@@ -127,7 +151,6 @@ export default function Form() {
         e.preventDefault();
         let endpoint = '';
         let body = JSON.stringify(formValue);
-        console.log(body);
 
         if(entityType === "Account") {
             endpoint = 'https://budgetapp-vdsp.onrender.com/api/users/create/accounts'
@@ -143,27 +166,14 @@ export default function Form() {
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({"account" : {transformedData}})
             })
-
             return response;
         } 
         else 
         {
             endpoint = 'https://budgetapp-vdsp.onrender.com/api/transactions/add/'
-        
         }
            
-        // else if (entityType === "Transaction") {
-
-        // }
-        
-        
         setFormCreated(false);
-
-
-        
-
-
-        // Choose which form to submit based on requestType and entityType
     }
 
     const handleCancel = (e) => {
@@ -202,11 +212,17 @@ export default function Form() {
         return formComponent; // Return the component to be rendered
     }
 
+   
     return (
         <>
             <NavBar />
             <section className='form-container'>
                 <h2 style={{ fontSize: "4rem", border: "solid" }}>Form Title</h2>
+
+                <pre style={{ width: "100%",maxHeight:"350px", whiteSpace: "pre-wrap", border: "1px solid #ddd", padding: "10px", overflowY:"auto"}}>
+                    {isMounted && JSON.stringify(observerData, null, 2)}
+                </pre>
+
                 <section className='form-contents'>
                     <div>
                         <select value={requestType} onChange={(e) => setRequestType(e.target.value)}>
