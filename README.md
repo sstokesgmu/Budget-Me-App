@@ -22,4 +22,4 @@ There's a little more information about the form:
 
 ## Backend 
 The backend is hosted here: https://budgetapp-vdsp.onrender.com
-- Here is a link to the backend: https://github.com/sstokesgmu/BudgetApp.git
+- Here is a link to the backend: https://github.com/sstokesgmu/BudgetApp
