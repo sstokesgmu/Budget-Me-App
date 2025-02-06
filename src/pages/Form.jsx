@@ -22,8 +22,9 @@ class FormLibrary extends Library {
         return (
             <div>
                 <h3>Create Account</h3>
-                <label> Account Type
+                    <label> Account Type
                     <select name="type" value={formValue.type} onChange={handleChange}>
+                        <option value="None">None</option>
                         <option value="Savings">Savings</option>
                         <option value="Checkings">Checking</option>
                     </select>
@@ -50,6 +51,7 @@ class FormLibrary extends Library {
                 </label>
                 <label>Transaction Type
                     <select name="type" value={formValue.type} onChange={handleChange}>
+                        <option value="Withdrawl">None</option>
                         <option value="Withdrawl">Withdrawl</option>
                         <option value="Deposit">Deposit</option>
                     </select>
@@ -64,11 +66,17 @@ class FormLibrary extends Library {
             </div>
         );
     }
-    static updateAccount() {
+    static updateAccountBalance(formValue,handleChange) {
         return (
             <div>
                 <h3>Update Account Form</h3>
-                <input type="text" placeholder="Update Account Name" name="accountName" />
+                <label> Account
+                    <input type="number" name="accountId" value={formValue.accountId} onChange={handleChange}/> 
+                </label>
+                <label> Current Balance
+                <input type="number" name="amount" value={formValue.amount} 
+                        placeholder={0.00} onChange={handleChange}/>
+                </label>
             </div>
         );
     }
@@ -156,6 +164,11 @@ export default function Form() {
                         RouteLibrary.createNewTransaction(formValue)
                     }
                     break;
+                case Types.UPDATE:
+                    if(entityType === "Account") {
+                        RouteLibrary.updateAccountBalance(formValue);
+                    }
+                    break;
             }
         }
         
@@ -183,7 +196,7 @@ export default function Form() {
                 break;
             case Types.UPDATE:
                 if(entityType === "Account")
-                    formComponent = FormLibrary.updateAccount(formValue,handleChange);
+                    formComponent = FormLibrary.updateAccountBalance(formValue,handleChange);
                 else if(entityType === "Transaction")
                     formComponent = FormLibrary.updateTransaction(formValue,handleChange);
                 break;

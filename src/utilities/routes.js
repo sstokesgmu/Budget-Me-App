@@ -23,9 +23,11 @@ export default class RouteLibrary extends Library {
 
     static async createNewTransaction(data){
 
+        console.log(data);
         const {accountId} = data;
 
-        const response = await fetch(`https://budgetapp-vdsp.onrender.com/api/transactions/${accountId}`, {
+
+        const response = await fetch(`https://budgetapp-vdsp.onrender.com/api/transactions/add/${accountId}`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({"transaction":data})
@@ -33,8 +35,10 @@ export default class RouteLibrary extends Library {
         return response;
     }
 
-    static async updateTypeOfAccount(accountId,data)
+    static async updateTypeOfAccount(data)
     {
+        console.log(data);
+        const {accountId} = data
         const response = await fetch(`https://budgetapp-vdsp.onrender.com/api/accounts/update-type/${accountId}`,{
             method: "PATCH",
             headers: {"Content-Type": "application/json"},
@@ -43,11 +47,14 @@ export default class RouteLibrary extends Library {
         return response;
     }
 
-    static async updateAccountBalance(accountId,data){
+    static async updateAccountBalance(data){
+        const {accountId, amount} = data
+
+
         const response = await fetch(`https://budgetapp-vdsp.onrender.com/api/accounts/update-balance/${accountId}`, {
             method: "PATCH",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({"balance": data})
+            body: JSON.stringify({"balance": amount})
         })
         return response;
     }
