@@ -7,7 +7,7 @@ export class Account {
 
 export class Blank_Account{
     constructor(){
-        this.account_num = undefined, this.type = undefined, this.amount = 0
+        this.account_num = null, this.type = null, this.amount = null
     }
 }
 
@@ -35,7 +35,7 @@ export class Transaction {
 
 export class Blank_Transaction {
     constructor(){
-        this.amount = 0, this.type =null, this.company ='';
+        this.amount = null, this.type = null, this.company = null;
     }    
 }
 export class Bucket{

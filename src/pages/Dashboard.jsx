@@ -55,15 +55,6 @@ export default function Dashboard(){
                     })
                     setBuckets(result);
                     setSelectedBucket(result[0]) //Grab
-
-
-
-
-
-
-
-
-
                     // //const formatedBucket = factory.FormatDataToMatchClass(Bucket,{date: bucket.start_date, amount: })
                     // setTransactions(bucket.transactions.map(element => factory.FormatDataToMatchClass(Transaction, element)))
 

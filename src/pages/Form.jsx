@@ -22,34 +22,46 @@ class FormLibrary extends Library {
             <div>
                 <h3>Create Account</h3>
                 <label> Account Type
-                    <select name="accountType" value={formValue.type} onChange={handleChange}>
+                    <select name="type" value={formValue.type} onChange={handleChange}>
                         <option value="Savings">Savings</option>
                         <option value="Checkings">Checking</option>
                     </select>
                 </label>
                 <label>
                     Account Number
-                    <input type="number" name="accountNumber" value={formValue.number} onChange={handleChange}/>
+                    <input type="number" name="account_num" value={formValue.account_num} onChange={handleChange}/>
                 </label>
                 <label> Starting Balance
-                <input type="number" name="balance" value={formValue.start} 
+                <input type="number" name="amount" value={formValue.amount} 
                         placeholder={0.00} onChange={handleChange}/>
                 </label>
                 {/* Other account fields */}
             </div>
         );
     }
-    static createTransaction() {
+    static createTransaction(formValue,handleChange) {
         // Return a JSX form for Transaction
         return (
             <div>
                 <h3>Create Transaction Form</h3>
-                <input type="text" placeholder="Transaction Details" name="transactionDetails" />
+                <label>Transaction Type
+                    <select name="type" value={formValue.type} onChange={handleChange}>
+                        <option value="Withdrawl">Withdrawl</option>
+                        <option value="Deposit">Deposit</option>
+                    </select>
+                </label>
+
+                <label> Amount
+                    <input type="number" name="amount" value={formValue.amount} placeholder={0.00} onChange={handleChange}/>
+                </label>
+
+                <label> Company
+                    <input type="text" name="company" value={formValue.company} onChange={handleChange}/> 
+                </label>
                 {/* Other transaction fields */}
             </div>
         );
     }
-
     static updateAccount() {
         return (
             <div>
@@ -84,11 +96,6 @@ class FormLibrary extends Library {
         );
     }
 }
-let dictionary = new Map();
-dictionary.set(Types.CREATE, [
-    { class: Blank_Account, func: FormLibrary.createAccount },
-    { class: Blank_Transaction, func: FormLibrary.createTransaction }
-]);
 
 export default function Form() {
     const [clear, setClear] = useState(false); // Reset back to initial state
@@ -116,10 +123,46 @@ export default function Form() {
         setFormCreated(true);
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert("Form Submitted");
+        let endpoint = '';
+        let body = JSON.stringify(formValue);
+        console.log(body);
+
+        if(entityType === "Account") {
+            endpoint = 'https://budgetapp-vdsp.onrender.com/api/users/create/accounts'
+
+            const transformedData = {
+                account_num: parseInt(formValue.account_num), // Convert to number
+                type: formValue.type || 'Checking', // Set default value if null
+                starting_amount: formValue.amount ? parseInt(formValue.amount) : 0, // Convert to number
+            };
+
+            const response = await fetch(endpoint, {
+                method:"PATCH",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({"account" : {transformedData}})
+            })
+
+            return response;
+        } 
+        else 
+        {
+            endpoint = 'https://budgetapp-vdsp.onrender.com/api/transactions/add/'
+        
+        }
+           
+        // else if (entityType === "Transaction") {
+
+        // }
+        
+        
         setFormCreated(false);
+
+
+        
+
+
         // Choose which form to submit based on requestType and entityType
     }
 
@@ -138,20 +181,20 @@ export default function Form() {
                 if(entityType === "Account"){
                     formComponent = FormLibrary.createAccount(formValue,handleChange);
                 } else if (entityType === "Transaction"){
-                    formComponent = FormLibrary.createTransaction();
+                    formComponent = FormLibrary.createTransaction(formValue,handleChange);
                 } 
                 break;
             case Types.UPDATE:
                 if(entityType === "Account")
-                    formComponent = FormLibrary.updateAccount();
+                    formComponent = FormLibrary.updateAccount(formValue,handleChange);
                 else if(entityType === "Transaction")
-                    formComponent = FormLibrary.updateTransaction();
+                    formComponent = FormLibrary.updateTransaction(formValue,handleChange);
                 break;
             case Types.DELETE:
                 if(entityType === "Account")
-                    formComponent = FormLibrary.deleteAccount();
+                    formComponent = FormLibrary.deleteAccount(formValue, handleChange);
                 else if (entityType === "Transaction")
-                    formComponent = FormLibrary.deleteTransaction();
+                    formComponent = FormLibrary.deleteTransaction(formValue,handleChange);
                 break;
             default:
                 break;    
