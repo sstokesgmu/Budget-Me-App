@@ -3,12 +3,9 @@ import React, { useState, useEffect } from 'react';
 import './form.scss';
 import Library, {Observer} from '../utilities/Library';
 import { Blank_Account,Blank_Transaction} from '../utilities/categories';
-import TextButton from '../components/Common/Buttons/Text-Button';
 import NavBar from '../components/Common/NavBar';
 
-
-
-
+import RouteLibrary from '../utilities/routes';
 
 const Types = {
     CREATE: "create-form",
@@ -48,17 +45,18 @@ class FormLibrary extends Library {
         return (
             <div>
                 <h3>Create Transaction Form</h3>
+                <label> Account
+                    <input type="number" name="accountId" value={formValue.accountId} onChange={handleChange}/> 
+                </label>
                 <label>Transaction Type
                     <select name="type" value={formValue.type} onChange={handleChange}>
                         <option value="Withdrawl">Withdrawl</option>
                         <option value="Deposit">Deposit</option>
                     </select>
                 </label>
-
                 <label> Amount
                     <input type="number" name="amount" value={formValue.amount} placeholder={0.00} onChange={handleChange}/>
-                </label>
-
+                </label>              
                 <label> Company
                     <input type="text" name="company" value={formValue.company} onChange={handleChange}/> 
                 </label>
@@ -74,14 +72,14 @@ class FormLibrary extends Library {
             </div>
         );
     }
-    static updateTransaction() {
-        return (
-            <div>
-                <h3>Update Transaction Form</h3>
-                <input type="text" placeholder="Update Transaction Details" name="transactionDetails" />
-            </div>
-        );
-    }
+    // static updateTransaction() {
+    //     return (
+    //         <div>
+    //             <h3>Update Transaction Form</h3>
+    //             <input type="text" placeholder="Update Transaction Details" name="transactionDetails" />
+    //         </div>
+    //     );
+    // }
 
     static deleteAccount() {
         return (
@@ -101,9 +99,6 @@ class FormLibrary extends Library {
     }
 }
 
-class RouteLibrary extends Library {
-
-}
 
 export default function Form() {
     const [clear, setClear] = useState(false); // Reset back to initial state
@@ -113,6 +108,8 @@ export default function Form() {
     const [entityType, setEntityType] = useState("Account"); // Default to Account
     const [observerData, setObserver] = useState(null);
 
+
+   
 
     const [isMounted, setMounted] = useState(false);
  
@@ -149,30 +146,20 @@ export default function Form() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let endpoint = '';
-        let body = JSON.stringify(formValue);
+        if(formValue){
 
-        if(entityType === "Account") {
-            endpoint = 'https://budgetapp-vdsp.onrender.com/api/users/create/accounts'
-
-            const transformedData = {
-                account_num: parseInt(formValue.account_num), // Convert to number
-                type: formValue.type || 'Checking', // Set default value if null
-                starting_amount: formValue.amount ? parseInt(formValue.amount) : 0, // Convert to number
-            };
-
-            const response = await fetch(endpoint, {
-                method:"PATCH",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({"account" : {transformedData}})
-            })
-            return response;
-        } 
-        else 
-        {
-            endpoint = 'https://budgetapp-vdsp.onrender.com/api/transactions/add/'
+            switch (requestType){
+                case Types.CREATE:
+                    if (entityType === "Account") {
+                        RouteLibrary.createNewAccount(formValue);
+                    } else if (entityType === "Transaction") {
+                        RouteLibrary.createNewTransaction(formValue)
+                    }
+                    break;
+            }
         }
-           
+        
+    
         setFormCreated(false);
     }
 
