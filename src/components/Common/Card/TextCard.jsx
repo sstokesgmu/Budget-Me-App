@@ -1,6 +1,6 @@
 import './textCard.scss'
 import react,{useState} from 'react';
-import Library from '../../../utilities/Library';
+import Library from '../../../utilities/library';
 import {Account, Transaction} from '../../../utilities/categories';
 
 
