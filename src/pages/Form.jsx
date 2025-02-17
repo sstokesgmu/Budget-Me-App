@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import './form.scss';
-import Library, {Observer} from '../utilities/Library';
+import Library, {Observer} from '../utilities/library';
 import { Blank_Account,Blank_Transaction} from '../utilities/categories';
 import NavBar from '../components/Common/NavBar';
 
