@@ -1,4 +1,4 @@
-import Library from "./Library";
+import Library from "./library";
 
 
 export default class RouteLibrary extends Library {
