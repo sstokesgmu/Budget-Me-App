@@ -1,0 +1,25 @@
+
+
+.card {
+    background-color: #edf2f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: .5% 3%;
+    width: 300px;
+    font-family: Arial, sans-serif;
+}
+
+.card  h5 {
+    color:rgb(89, 89, 89);
+    font-size: .7rem;
+}
+.amount_heading{
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.footer {
+    display:flex;
+    justify-content: space-between;
+
+}
