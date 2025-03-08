@@ -6,6 +6,8 @@ import {useEffect,useState, StrictMode}from 'react'
 
 //Components
 import Debrief from '../components/Debrief';
+import BarGraph_Budget from '../components/BarGraph';
+import Carousel from '../components/Carousel';
 // import NavBar from '../components/Common/NavBar'
 // import TransactionChart from '../components/Chart/TransChart';
 // import Profile from '../components/Common/Profile/Profile.jsx';
@@ -24,10 +26,25 @@ export default function Dashboard(){
     return( 
         <StrictMode>
         <span>
-            <h1>Side Bar</h1> {/*The navigation bar can be the sidebar */}
-            <Debrief/>    
-            <h1>Graph</h1>
-            <h2>Card Section</h2>
+            {/* <h1>Side Bar</h1> The navigation bar can be the sidebar */}
+             {/* <h1>Side Bar</h1> The navigation bar can be the sidebar */}
+            <section style={{display: 'flex', justifyContent: 'center', width: '100%',  marginTop: '50px'}}>
+                <div style={{display: 'flex', justifyContent: 'center', gap: '10px', width: '80%'}}>
+                    {/* Left component (Debrief) takes up 30% */}
+                    <div style={{flex: '0 0 20%', marginRight: '20px'}}>
+                        <Debrief/>
+                    </div>
+
+                    {/* Right component (BarGraph_Budget) takes up 70% */}
+                    <div style={{flex: '0 0 80%',  height:'500px', marginLeft: '20px'}}>
+                        <BarGraph_Budget/>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h1>Account 123's Transaction Total Amount: $0.00</h1>
+                <Carousel/> 
+            </section>
         </span>
         </StrictMode>
     );
