@@ -3,6 +3,7 @@ import {useEffect,useState, StrictMode}from 'react'
 
 //Styles
 
+import {USER_SEED,ACCOUNTS_SEED,TRANSACTION_SEED} from '../utilities/seed'
 
 //Components
 import Debrief from '../components/Debrief';
@@ -25,6 +26,7 @@ export default function Dashboard(){
     
     return( 
         <StrictMode>
+        {console.log(USER_SEED)}
         <span>
             {/* <h1>Side Bar</h1> The navigation bar can be the sidebar */}
              {/* <h1>Side Bar</h1> The navigation bar can be the sidebar */}
