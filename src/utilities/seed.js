@@ -17,7 +17,11 @@ export const ACCOUNTS_SEED = [
       "starting_amount": 0,
       "current_amount": 4000,
       "bucket": [
-        "67a2c6527ab0e405be35848f"
+        "67a2c6527ab0e405be35848f",
+        "67a2f153400f8459b315069c",
+        "67a2f1a8400f8459b315069d"
+        
+
       ],
       "__v": 0
     },
@@ -42,9 +46,7 @@ export const ACCOUNTS_SEED = [
       "date_closed": null,
       "starting_amount": 0,
       "current_amount": 0,
-      "bucket": [
-        "67a4cf061f3015cca4dab895"
-      ],
+      "bucket": [],
       "__v": 0
     },
   ]
