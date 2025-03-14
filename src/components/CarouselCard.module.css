@@ -3,7 +3,7 @@
 .container {
     display: flex; 
     flex-direction: column; 
-    height: 100px; 
+    height: 10em; 
     width: 200px; 
     border: solid; 
     justify-content: space-evenly;
@@ -29,10 +29,11 @@
 }
 
 .title > p {
-    flex: 0 0 5%; 
+    flex: 0 1 90%; 
     text-align: center; 
     font-size:20px;
     margin: 0;
+    overflow:hidden;
 }
 
 .body {

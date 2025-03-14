@@ -1,5 +1,5 @@
 // Libraries
-import {useEffect,useState, StrictMode}from 'react'
+import {useEffect,useState, createContext,StrictMode}from 'react'
 
 //Styles
 
@@ -13,6 +13,8 @@ import Carousel from '../components/Carousel';
 
 const {name, accounts} = USER_SEED[0];
 const user = {name, accounts}
+
+export const TransactionContext = createContext(null);
 
 function searchForAccount(number){
     const {account_num,type,date_opened,date_closed,starting_amount,current_amount,bucket} = ACCOUNTS_SEED.find(account =>  account.account_num == number)
@@ -34,9 +36,7 @@ export default function Dashboard(){
     //!Warning might cause side effects: is the account varaible during this state render 
 
     //conditional check inside the initializer
-    //account.bucket && account.bucket.length > 0 ? searchForTransaction(account.bucket[0]) : null
     const [bucket, setBucket] = useState(account.bucket && account.bucket.length > 0 ? searchForTransaction(account.bucket[0]) : null);
-    
     function handleAccountChange(event){
         console.log(event.target.value);
         const newAccount = searchForAccount(event.target.value);
@@ -80,7 +80,9 @@ export default function Dashboard(){
             </section>
             <section>
                 <h1>Account 123's Transaction Total Amount: $0.00</h1>
-                <Carousel/> 
+                <TransactionContext.Provider value={bucket}>
+                    <Carousel/> 
+                </TransactionContext.Provider>
             </section>
         </span>
         </StrictMode>
