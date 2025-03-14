@@ -38,7 +38,7 @@ function createDataMatrix(account,transaction){
   return a;
 }
 
-export default function BarGraph_Budget({bucket,account}) {
+export default function LineChart_Budget({bucket,account}) {
   const transactions =  bucket?.transactions ??  [];
   console.log(transactions);
   const data = createDataMatrix(account,transactions)

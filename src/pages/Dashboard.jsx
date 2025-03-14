@@ -8,7 +8,7 @@ import {USER_SEED,ACCOUNTS_SEED,TRANSACTION_SEED} from '../utilities/seed'
 import {percentageChange,} from '../utilities/Math'
 //Components
 import Debrief from '../components/Debrief';
-import BarGraph_Budget from '../components/BarGraph';
+import LineChart_Budget from '../components/LineChart';
 import Carousel from '../components/Carousel';
 
 const {name, accounts} = USER_SEED[0];
@@ -74,7 +74,7 @@ export default function Dashboard(){
 
                     {/* Right component (BarGraph_Budget) takes up 70% */}
                     <div style={{flex: '0 0 80%',  height:'500px', marginLeft: '20px'}}>
-                        <BarGraph_Budget bucket={bucket} account={account}/>
+                        <LineChart_Budget bucket={bucket} account={account}/>
                     </div>
                 </div>
             </section>
