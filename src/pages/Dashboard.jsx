@@ -74,7 +74,7 @@ export default function Dashboard(){
 
                     {/* Right component (BarGraph_Budget) takes up 70% */}
                     <div style={{flex: '0 0 80%',  height:'500px', marginLeft: '20px'}}>
-                        <BarGraph_Budget transaction={bucket} account={account}/>
+                        <BarGraph_Budget bucket={bucket} account={account}/>
                     </div>
                 </div>
             </section>
