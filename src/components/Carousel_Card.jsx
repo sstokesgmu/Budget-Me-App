@@ -5,15 +5,7 @@ import classes from './CarouselCard.module.css'
 export default function CarouselCard()
 {
     const bucket = useContext(TransactionContext);
-
-
-
-
-
-
-
     return (
-
             <> 
                 {bucket && bucket.transactions.map((element, index)=> 
                 <div key={index} className={classes.container}>

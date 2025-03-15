@@ -56,26 +56,25 @@ export default function Dashboard(){
                 {account.bucket && account.bucket.map((element,index) => <option key={element} value={element}>{`Bucket ${index + 1}`}</option>)}
             </select>
             <p>The current account selected is {account.account_num}</p>
-            <pre>{JSON.stringify(account)}</pre>
+            {/* <pre>{JSON.stringify(account)}</pre> */}
             <p>{account.bucket.length > 0 ? `The current bucket selected is ${bucket.id}`: `The account has no bucket`}</p>
-            <pre>{account.bucket && JSON.stringify(bucket)}</pre>
+            {/* <pre>{account.bucket && JSON.stringify(bucket)}</pre> */}
             {/* <h1>Side Bar</h1> The navigation bar can be the sidebar */}
              {/* <h1>Side Bar</h1> The navigation bar can be the sidebar */}
-            <section style={{display: 'flex', justifyContent: 'center', width: '100%',  marginTop: '50px'}}>
-                <div style={{display: 'flex', justifyContent: 'center', gap: '10px', width: '80%'}}>
+            <section style={{display: 'flex', justifyContent: 'center', width: '100%',  marginTop: '50px', flexDirection:'column'}}>
+                <div style={{position:'relative', left: '70px'}}>
+                    <Debrief 
+                    percentage=
+                    {percentageChange(account.starting_amount, account.current_amount)} 
+                    totalAmount={account.current_amount}/>
+
+                    <div style={{width:'300px', height:'120px', backgroundColor:'red', position:'relative', bottom:130, left:350}}></div>
+                </div>
+                <div style={{display: 'flex', marginTop: '0px'}}>
                     {/* Left component (Debrief) takes up 30% */}
                     {/* percentage,totalAmount,currentAmount */}
-                    <div style={{flex: '0 0 20%', marginRight: '20px'}}>
-                        <Debrief 
-                        percentage=
-                        {percentageChange(account.starting_amount, account.current_amount)} 
-                        totalAmount={account.current_amount}/>
-                    </div>
-
+                     <LineChart_Budget bucket={bucket} account={account}/>
                     {/* Right component (BarGraph_Budget) takes up 70% */}
-                    <div style={{flex: '0 0 80%',  height:'500px', marginLeft: '20px'}}>
-                        <LineChart_Budget bucket={bucket} account={account}/>
-                    </div>
                 </div>
             </section>
             <section>

@@ -15,7 +15,7 @@ export const ACCOUNTS_SEED = [
       "date_opened": "2025-02-05T00:09:15.649Z",
       "date_closed": null,
       "starting_amount": 0,
-      "current_amount": 4000,
+      "current_amount": 3000,
       "bucket": [
         "67a2c6527ab0e405be35848f",
         "67a2f153400f8459b315069c",
@@ -60,7 +60,7 @@ export const TRANSACTION_SEED = [
       "transactions": [
         {
           "date": "2025-02-05T02:00:49.835Z",
-          "amount": 3000,
+          "amount": 1000,
           "trans_type": "withdrawl",
           "comp_name": "Steam Games",
           "status": "pending",

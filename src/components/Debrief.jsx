@@ -10,14 +10,18 @@ import {PERCENTAGE_CHANGE_INTERFACE, FORMATTER} from '../utilities/Math'
 //props percentage change, current amount, change amount 
 export default function Debrief({percentage,totalAmount,currentAmount}){
 
+    totalAmount = 1000000
     //fsor each character return a span insert '$' at the start of the string 
     let digitContainer = (FORMATTER.format( totalAmount?? 0)).split('');
 
     return <section className={classes.card} >
                         <div> {/*Debrief-show account information */}
                             <h5>Total Balance</h5>
-                            <section className={classes.amount_heading} >  
-                                {digitContainer.map((char,index) => <span key={index}>{char}</span>)}
+                            <section style={{display:'flex', gap:'10px', justifyContent:'space-between'}}>
+                                <span className={classes.amount_heading} >  
+                                    {digitContainer.map((char,index) => <span key={index}>{char}</span>)}
+                                </span>
+                                <button>Click me</button>
                             </section>
                             <div className={classes.footer}>
                                 <p>

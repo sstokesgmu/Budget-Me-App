@@ -4,7 +4,6 @@ import User from './pages/User';
 import Dashboard from './pages/Dashboard';
 import Budget from './pages/Budget';
 import NavBar from './components/Common/NavBar';
-
 export default function App() {
 return (
     <>
