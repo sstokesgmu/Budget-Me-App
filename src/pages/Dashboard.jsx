@@ -8,6 +8,7 @@ import {USER_SEED,ACCOUNTS_SEED,TRANSACTION_SEED} from '../utilities/seed'
 import {percentageChange,} from '../utilities/Math'
 //Components
 import Debrief from '../components/Debrief';
+import SearchableDropdown from '../components/SearchableDropdown';
 import LineChart_Budget from '../components/LineChart';
 import Carousel from '../components/Carousel';
 
@@ -37,38 +38,31 @@ export default function Dashboard(){
 
     //conditional check inside the initializer
     const [bucket, setBucket] = useState(account.bucket && account.bucket.length > 0 ? searchForTransaction(account.bucket[0]) : null);
-    function handleAccountChange(event){
-        console.log(event.target.value);
-        const newAccount = searchForAccount(event.target.value);
+    
+
+    
+    
+    function handleAccountChange(value){
+        const newAccount = searchForAccount(value);
         setAccount(newAccount);
         //TODO: create a useEffect function to watch for account changes.
         setBucket(newAccount.bucket && newAccount.bucket.length > 0 ? searchForTransaction(newAccount.bucket[0]) : null)
     }
     function handleBucketChange(event){setBucket(searchForTransaction(event.target.value));} 
+
     return( 
         <StrictMode>
         <span>
             <h1>{user.name}</h1>
-            <select name='accounts'  onChange={handleAccountChange}>
-                {user.accounts.map(account => <option key={account} value={account}>{account}</option>)}
-            </select>
-            <select name='buckets' onChange={handleBucketChange}>
-                {account.bucket && account.bucket.map((element,index) => <option key={element} value={element}>{`Bucket ${index + 1}`}</option>)}
-            </select>
-            <p>The current account selected is {account.account_num}</p>
-            {/* <pre>{JSON.stringify(account)}</pre> */}
-            <p>{account.bucket.length > 0 ? `The current bucket selected is ${bucket.id}`: `The account has no bucket`}</p>
-            {/* <pre>{account.bucket && JSON.stringify(bucket)}</pre> */}
-            {/* <h1>Side Bar</h1> The navigation bar can be the sidebar */}
-             {/* <h1>Side Bar</h1> The navigation bar can be the sidebar */}
             <section style={{display: 'flex', justifyContent: 'center', width: '100%',  marginTop: '50px', flexDirection:'column'}}>
-                <div style={{position:'relative', left: '70px'}}>
+                <div style={{position:'relative', left: '70px',}}>
                     <Debrief 
-                    percentage=
-                    {percentageChange(account.starting_amount, account.current_amount)} 
-                    totalAmount={account.current_amount}/>
-
-                    <div style={{width:'300px', height:'120px', backgroundColor:'red', position:'relative', bottom:130, left:350}}></div>
+                    accountName={account.account_num}
+                    percentage={percentageChange(account.starting_amount, account.current_amount)} 
+                    totalAmount={account.current_amount}
+                    passUpFunc = {(value) => handleAccountChange(value)}
+                    dropdownConfig={{options:user.accounts, func:(value) => handleAccountChange(value)}}
+                    />                
                 </div>
                 <div style={{display: 'flex', marginTop: '0px'}}>
                     {/* Left component (Debrief) takes up 30% */}
@@ -87,3 +81,57 @@ export default function Dashboard(){
         </StrictMode>
     );
 }
+
+{/* 
+<div
+                                        style={{
+                                        width: '300px',
+                                        height: 'auto',  // Allow height to grow based on content
+                                        backgroundColor: 'white',  // Change background to white for card style
+                                        position: 'relative',
+                                        bottom: 130,
+                                        left: 400,
+                                        borderRadius: '10px',  // Rounded corners for a card look
+                                        padding: '20px',  // Add some padding
+                                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Subtle shadow for depth
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: '10px',  // Space between elements
+                                        }}
+                                    >
+                                        <select
+                                        name='accounts'
+                                        onChange={handleAccountChange}
+                                        style={{
+                                            padding: '10px',
+                                            borderRadius: '5px',
+                                            border: '1px solid #ddd',  // Light border
+                                            fontSize: '14px',
+                                        }}
+                                        >
+                                        {user.accounts.map(account => (
+                                            <option key={account} value={account}>
+                                            {account}
+                                            </option>
+                                        ))}
+                                        </select>
+
+                                        {/* <select
+                                        name='buckets'
+                                        onChange={handleBucketChange}
+                                        style={{
+                                            padding: '10px',
+                                            borderRadius: '5px',
+                                            border: '1px solid #ddd',  // Light border
+                                            fontSize: '14px',
+                                        }}
+                                        >
+                                        {account.bucket &&
+                                            account.bucket.map((element, index) => (
+                                            <option key={element} value={element}>
+                                                {`Bucket ${index + 1}`}
+                                            </option>
+                                            ))}
+                                        </select> */}
+                                    {/* </div>
+                                    )} */} 
