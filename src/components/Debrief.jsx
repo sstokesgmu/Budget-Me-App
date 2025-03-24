@@ -23,13 +23,10 @@ export default function Debrief({
   {
     setOptions(previous => !previous);
   }
-
-
-
-  //fsor each character return a span insert '$' at the start of the string
+  //for each character return a span insert '$' at the start of the string
   let digitContainer = FORMATTER.format(totalAmount ?? 0).split("");
   return (
-    <>
+    <section className={classes.container}>
         <section className={classes.card}>
           <div>
             {/*Debrief-show account information */}
@@ -88,6 +85,6 @@ export default function Debrief({
                 dropdownConfig?.func(value)
               }  
             }/>}
-    </>
+    </section>
   );
 }

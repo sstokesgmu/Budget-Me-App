@@ -62,7 +62,7 @@ export default function Dashboard(){
                     totalAmount={account.current_amount}
                     passUpFunc = {(value) => handleAccountChange(value)}
                     dropdownConfig={{options:user.accounts, func:(value) => handleAccountChange(value)}}
-                    />                
+                    />          
                 </div>
                 <div style={{display: 'flex', marginTop: '0px'}}>
                     {/* Left component (Debrief) takes up 30% */}
