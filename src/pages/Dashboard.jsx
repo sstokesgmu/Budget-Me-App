@@ -11,11 +11,13 @@ import Debrief from '../components/Debrief';
 import SearchableDropdown from '../components/SearchableDropdown';
 import LineChart_Budget from '../components/LineChart';
 import Carousel from '../components/Carousel';
+import CarouselCard from '../components/Carousel_Card';
+import CarouselLabel from '../components/Carousel_Label'; 
 
 const {name, accounts} = USER_SEED[0];
 const user = {name, accounts}
 
-export const TransactionContext = createContext(null);
+//export const TransactionContext = createContext(null);
 
 function searchForAccount(number){
     const {account_num,type,date_opened,date_closed,starting_amount,current_amount,bucket} = ACCOUNTS_SEED.find(account =>  account.account_num == number)
@@ -38,17 +40,21 @@ export default function Dashboard(){
 
     //conditional check inside the initializer
     const [bucket, setBucket] = useState(account.bucket && account.bucket.length > 0 ? searchForTransaction(account.bucket[0]) : null);
-    
 
-    
-    
+    const [selectedBucket, setSelectedBucket] = useState(null); // Track selected bucket
+
+
     function handleAccountChange(value){
         const newAccount = searchForAccount(value);
         setAccount(newAccount);
         //TODO: create a useEffect function to watch for account changes.
         setBucket(newAccount.bucket && newAccount.bucket.length > 0 ? searchForTransaction(newAccount.bucket[0]) : null)
     }
-    function handleBucketChange(event){setBucket(searchForTransaction(event.target.value));} 
+    function handleBucketChange(value) {
+        // Update the selected bucket when a new one is clicked
+        setSelectedBucket(value); // Update selected bucket
+        setBucket(searchForTransaction(value)); // Set bucket details based on the selected one
+    }
 
     return( 
         <StrictMode>
@@ -64,6 +70,15 @@ export default function Dashboard(){
                     dropdownConfig={{options:user.accounts, func:(value) => handleAccountChange(value)}}
                     />          
                 </div>
+                <section>
+                    {bucket && <Carousel 
+                        array={account.bucket} 
+                        component={CarouselLabel} 
+                        options={{
+                            selectedBucket,
+                            func:(e) => handleBucketChange(e)}}
+                    />}
+                </section>
                 <div style={{display: 'flex', marginTop: '0px'}}>
                     {/* Left component (Debrief) takes up 30% */}
                     {/* percentage,totalAmount,currentAmount */}
@@ -72,66 +87,16 @@ export default function Dashboard(){
                 </div>
             </section>
             <section>
-                <h1>Account 123's Transaction Total Amount: $0.00</h1>
-                <TransactionContext.Provider value={bucket}>
-                    <Carousel/> 
-                </TransactionContext.Provider>
+                    {bucket && <Carousel array={bucket.transactions} component={CarouselCard}/>}
+                    {!bucket && <h1>No Transaction on this bucket</h1>}
             </section>
         </span>
+        <br></br>
+        <br></br>
+        <br></br>
+        <footer>
+            Footnote
+        </footer>
         </StrictMode>
     );
 }
-
-{/* 
-<div
-                                        style={{
-                                        width: '300px',
-                                        height: 'auto',  // Allow height to grow based on content
-                                        backgroundColor: 'white',  // Change background to white for card style
-                                        position: 'relative',
-                                        bottom: 130,
-                                        left: 400,
-                                        borderRadius: '10px',  // Rounded corners for a card look
-                                        padding: '20px',  // Add some padding
-                                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',  // Subtle shadow for depth
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        gap: '10px',  // Space between elements
-                                        }}
-                                    >
-                                        <select
-                                        name='accounts'
-                                        onChange={handleAccountChange}
-                                        style={{
-                                            padding: '10px',
-                                            borderRadius: '5px',
-                                            border: '1px solid #ddd',  // Light border
-                                            fontSize: '14px',
-                                        }}
-                                        >
-                                        {user.accounts.map(account => (
-                                            <option key={account} value={account}>
-                                            {account}
-                                            </option>
-                                        ))}
-                                        </select>
-
-                                        {/* <select
-                                        name='buckets'
-                                        onChange={handleBucketChange}
-                                        style={{
-                                            padding: '10px',
-                                            borderRadius: '5px',
-                                            border: '1px solid #ddd',  // Light border
-                                            fontSize: '14px',
-                                        }}
-                                        >
-                                        {account.bucket &&
-                                            account.bucket.map((element, index) => (
-                                            <option key={element} value={element}>
-                                                {`Bucket ${index + 1}`}
-                                            </option>
-                                            ))}
-                                        </select> */}
-                                    {/* </div>
-                                    )} */} 

@@ -1,8 +1,10 @@
-import CarouselCard from "./Carousel_Card"
-export default function Carousel()
+export default function Carousel({array,component:Component,options = {}})
 {
-    return <section style={{ display:'flex',gap:'10px', flexDirection:'row',}}>
-            <CarouselCard/>
+    return <section style={{ display:'flex',gap:'30px', flexDirection:'row',}}>
+            {array.map((element,index) =>{
+                return !options? <Component key={index} data={element}/> :
+                        <Component key={index} data={element} options={{id:index, ...options}}/> 
+            })}
     </section>
 }
 

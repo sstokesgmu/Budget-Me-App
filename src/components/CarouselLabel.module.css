@@ -1,0 +1,22 @@
+/* styles.css */
+.carouselLabel {
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #4A90E2;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .carouselLabel:hover {
+    background-color: #e0e0e0;
+    color: #000;
+  }
+
+  .selected {
+    background-color: #d50909;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  

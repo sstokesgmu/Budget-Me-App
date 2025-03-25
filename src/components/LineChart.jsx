@@ -1,5 +1,4 @@
 import { LineChart, Line, CartesianGrid, XAxis,YAxis, ResponsiveContainer, Tooltip, Legend} from "recharts";
-import { AmmoPhysics } from "three/examples/jsm/Addons.js";
 
 
 function formatDate(dateString, timezone){

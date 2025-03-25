@@ -23,3 +23,8 @@ export function percentageChange(start, current){
     }
     return percentage;
 }
+
+export function calculateAmountDirection(amount, trans_type)
+{
+    return trans_type.toUpperCase() === "DEPOSIT" ? amount : -amount; 
+}
