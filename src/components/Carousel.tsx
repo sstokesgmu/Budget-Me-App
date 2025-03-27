@@ -7,6 +7,3 @@ export default function Carousel({array,component:Component,options = {}})
             })}
     </section>
 }
-
-//
-//Function to create items
